@@ -1,3 +1,5 @@
+import { SidebarProvider, SidebarTrigger } from '@/ui/sidebar'
+import { AdminSidebar } from '@/components/layouts/AdminSidebar'
 import React from 'react'
 
 type Props = {
@@ -6,6 +8,12 @@ type Props = {
 
 export default function layout({ children }: Props) {
     return (
-        <div>{children}</div>
+        <SidebarProvider>
+            <AdminSidebar />
+            <main>
+                <SidebarTrigger />
+                {children}
+            </main>
+        </SidebarProvider>
     )
 }
