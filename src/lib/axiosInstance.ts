@@ -4,10 +4,8 @@ import axios, {
   InternalAxiosRequestConfig,
 } from "axios"
 
-// Define base URL from environment variable or default
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api"
 
-// Create axios instance with default config
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: BASE_URL,
   timeout: 10000, // 10 seconds
@@ -17,10 +15,8 @@ const axiosInstance: AxiosInstance = axios.create({
   },
 })
 
-// Request interceptor
 axiosInstance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    // Get token from localStorage if in browser environment
     if (typeof window !== "undefined") {
       const token = localStorage.getItem("accessToken")
       if (token) {

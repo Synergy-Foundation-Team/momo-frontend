@@ -1,11 +1,7 @@
 import React from 'react'
 
-type Props = {
-    children: React.ReactNode;
-}
-
-export default function page({ children }: Props) {
+export default function page() {
     return (
-        <div>{children}</div>
+        <div>admin page</div>
     )
 }
