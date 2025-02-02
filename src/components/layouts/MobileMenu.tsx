@@ -23,11 +23,11 @@ export function MobileMenu({ totalItems }: MobileMenuProps) {
           <Menu className="h-5 w-5" />
         </Button>
       </SheetTrigger>
-      <SheetContent side="right" className="w-[300px] sm:w-[400px]" title="Navigation Menu">
+      <SheetContent side="right" className="w-[300px] sm:w-[400px] flex flex-col" title="Navigation Menu">
         <SheetHeader>
           <SheetTitle>เมนู</SheetTitle>
         </SheetHeader>
-        <div className="flex flex-col gap-4 mt-4">
+        <div className="flex flex-col gap-4 mt-4 flex-1">
           {/* Menu Links */}
           <div className="flex flex-col gap-2">
             <Link
@@ -83,6 +83,15 @@ export function MobileMenu({ totalItems }: MobileMenuProps) {
               ตะกร้าสินค้า
             </Link>
           </div>
+        </div>
+
+        {/* button fix bottom to close menu */}
+        <div className="mt-auto pt-4 border-t w-full">
+          <SheetTrigger asChild>
+            <Button variant="secondary" className="w-full">
+              ปิดเมนู
+            </Button>
+          </SheetTrigger>
         </div>
       </SheetContent>
     </Sheet>
