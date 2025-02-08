@@ -16,14 +16,14 @@ export function ProductCard({ product, onAddToCart, onAddToWishlist }: ProductCa
 
   const formattedOriginalPrice = originalPrice
     ? new Intl.NumberFormat('th-TH', {
-        style: 'currency',
-        currency: 'THB',
-      }).format(originalPrice)
+      style: 'currency',
+      currency: 'THB',
+    }).format(originalPrice)
     : null
 
   return (
     <Card className="overflow-hidden group">
-      <Link href={`/products/${id}`}>
+      <Link href={`/${id}`}>
         <div className="aspect-square relative overflow-hidden">
           <Image
             src={image}

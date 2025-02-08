@@ -90,8 +90,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </SidebarContent>
             <SidebarFooter>
                 {/* <NavUser user={data.user} /> */}
-                <Button 
-                    variant="destructive"
+                <Button
+                    variant="outline"
                     onClick={() => {
                         useAlertDialog.getState().open({
                             title: 'ยืนยันการออกจากระบบ',

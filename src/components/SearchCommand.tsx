@@ -29,13 +29,14 @@ export function SearchCommand({
 
   return (
     <CommandDialog open={open} onOpenChange={onOpenChange}>
-      <CommandInput placeholder="Search products or brands..." />
+      <CommandInput placeholder="ค้นหา..." />
       <CommandList>
-        <CommandEmpty>No results found.</CommandEmpty>
-        <CommandGroup heading="Products">
+        <CommandEmpty>ไม่พบผลลัพธ์</CommandEmpty>
+        <CommandGroup heading="รายการสินค้า">
           {/* Add your product search results here */}
         </CommandGroup>
       </CommandList>
     </CommandDialog>
+
   )
 }

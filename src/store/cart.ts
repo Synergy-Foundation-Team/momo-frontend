@@ -1,5 +1,5 @@
-import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { create } from "zustand"
+import { persist } from "zustand/middleware"
 
 export interface CartItem {
   id: string
@@ -19,56 +19,74 @@ interface CartStore {
   clearCart: () => void
 }
 
+const mockItems = [
+  {
+    id: "1",
+    name: "พารา เซตามอล",
+    image: "/images/product-1.jpg",
+    price: 54.69,
+    quantity: 1,
+  },
+  {
+    id: "2",
+    name: "ยาแก้ไอ ตราแบรนด์",
+    image: "/images/product-2.jpg",
+    price: 54.69,
+    quantity: 1,
+  },
+]
+
 export const useCartStore = create<CartStore>()(
   persist(
     (set, get) => ({
-      items: [],
+      items: [...mockItems],
       totalItems: 0,
       totalPrice: 0,
-      addItem: (item) => {
+      addItem: item => {
         const currentItems = get().items
-        const existingItem = currentItems.find((i) => i.id === item.id)
+        const existingItem = currentItems.find(i => i.id === item.id)
 
         if (existingItem) {
-          const updatedItems = currentItems.map((i) =>
+          const updatedItems = currentItems.map(i =>
             i.id === item.id
               ? { ...i, quantity: i.quantity + (item.quantity || 1) }
               : i
           )
-          set((state) => ({
+          set(state => ({
             items: updatedItems,
             totalItems: state.totalItems + (item.quantity || 1),
             totalPrice: state.totalPrice + item.price * (item.quantity || 1),
           }))
         } else {
-          set((state) => ({
+          set(state => ({
             items: [...state.items, { ...item, quantity: item.quantity || 1 }],
             totalItems: state.totalItems + (item.quantity || 1),
             totalPrice: state.totalPrice + item.price * (item.quantity || 1),
           }))
         }
       },
-      removeItem: (itemId) => {
-        const itemToRemove = get().items.find((i) => i.id === itemId)
+      removeItem: itemId => {
+        const itemToRemove = get().items.find(i => i.id === itemId)
         if (!itemToRemove) return
 
-        set((state) => ({
-          items: state.items.filter((i) => i.id !== itemId),
+        set(state => ({
+          items: state.items.filter(i => i.id !== itemId),
           totalItems: state.totalItems - itemToRemove.quantity,
-          totalPrice: state.totalPrice - itemToRemove.price * itemToRemove.quantity,
+          totalPrice:
+            state.totalPrice - itemToRemove.price * itemToRemove.quantity,
         }))
       },
       updateQuantity: (itemId, quantity) => {
         const currentItems = get().items
-        const item = currentItems.find((i) => i.id === itemId)
+        const item = currentItems.find(i => i.id === itemId)
         if (!item) return
 
         const quantityDiff = quantity - item.quantity
-        const updatedItems = currentItems.map((i) =>
+        const updatedItems = currentItems.map(i =>
           i.id === itemId ? { ...i, quantity } : i
         )
 
-        set((state) => ({
+        set(state => ({
           items: updatedItems,
           totalItems: state.totalItems + quantityDiff,
           totalPrice: state.totalPrice + item.price * quantityDiff,
@@ -83,7 +101,7 @@ export const useCartStore = create<CartStore>()(
       },
     }),
     {
-      name: 'cart-storage',
+      name: "cart-storage",
       skipHydration: true,
     }
   )

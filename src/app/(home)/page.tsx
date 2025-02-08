@@ -4,7 +4,9 @@ import { ProductGrid } from '@/components/products/ProductGrid'
 import { Product } from '@/types/product'
 import { useEffect, useState } from 'react'
 
-export default function ProductsPage() {
+
+
+export default function HomePage() {
   const [loading, setLoading] = useState(true)
   const [products, setProducts] = useState<Product[]>([])
 
@@ -14,7 +16,7 @@ export default function ProductsPage() {
       try {
         // TODO: Replace with actual API call
         await new Promise((resolve) => setTimeout(resolve, 1000))
-        
+
         // Sample data
         const sampleProducts: Product[] = Array.from({ length: 12 }, (_, i) => ({
           id: `product-${i + 1}`,
@@ -38,15 +40,19 @@ export default function ProductsPage() {
   }, [])
 
   return (
-    <div className="container py-8">
-      <div className="flex items-center justify-between mb-8">
-        <h1 className="text-2xl font-semibold">สินค้าทั้งหมด</h1>
-        <div className="text-sm text-muted-foreground">
-          แสดง {products.length} รายการ
-        </div>
-      </div>
+    <div>
 
-      <ProductGrid products={products} loading={loading} />
+
+      <div className="mx-auto md:container py-8">
+        <div className="flex items-center justify-between mb-8">
+          <h1 className="text-2xl font-semibold">สินค้าแนะนำ</h1>
+          <div className="text-sm text-muted-foreground">
+            แสดง {products.length} รายการ
+          </div>
+        </div>
+
+        <ProductGrid products={products} loading={loading} />
+      </div>
     </div>
   )
 }
