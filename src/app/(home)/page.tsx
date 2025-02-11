@@ -2,48 +2,56 @@
 
 import { ProductGrid } from '@/components/products/ProductGrid'
 import { Product } from '@/types/product'
-import { useEffect, useState } from 'react'
+import { Paginator } from '@/components/ui/Paginator'
+import { useEffect, useState, useRef } from 'react'
 
 
 
 export default function HomePage() {
+  const productSectionRef = useRef<HTMLDivElement>(null)
   const [loading, setLoading] = useState(true)
   const [products, setProducts] = useState<Product[]>([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
+  const itemsPerPage = 12
+
+  const fetchProducts = async (page: number) => {
+    try {
+      setLoading(true)
+      await new Promise((resolve) => setTimeout(resolve, 1000))
+
+      // Simulate pagination with sample data
+      const totalItems = 50 // Total number of products
+      const calculatedTotalPages = Math.ceil(totalItems / itemsPerPage)
+      setTotalPages(calculatedTotalPages)
+
+      const startIndex = (page - 1) * itemsPerPage
+      const sampleProducts: Product[] = Array.from({ length: itemsPerPage }, (_, i) => ({
+        id: `product-${startIndex + i + 1}`,
+        name: `สินค้าตัวอย่าง ${startIndex + i + 1}`,
+        price: 499.99,
+        originalPrice: 999.99,
+        discountPercentage: 50,
+        image: `https://placehold.co/400x400?text=Product+${startIndex + i + 1}`,
+        category: 'sample',
+      }))
+
+      setProducts(sampleProducts)
+    } catch (error) {
+      console.error('Error fetching products:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   useEffect(() => {
-    // Simulate API call
-    const fetchProducts = async () => {
-      try {
-        // TODO: Replace with actual API call
-        await new Promise((resolve) => setTimeout(resolve, 1000))
-
-        // Sample data
-        const sampleProducts: Product[] = Array.from({ length: 12 }, (_, i) => ({
-          id: `product-${i + 1}`,
-          name: `สินค้าตัวอย่าง ${i + 1}`,
-          price: 499.99,
-          originalPrice: 999.99,
-          discountPercentage: 50,
-          image: `https://placehold.co/400x400?text=Product+${i + 1}`,
-          category: 'sample',
-        }))
-
-        setProducts(sampleProducts)
-        setLoading(false)
-      } catch (error) {
-        console.error('Error fetching products:', error)
-        setLoading(false)
-      }
-    }
-
-    fetchProducts()
-  }, [])
+    fetchProducts(currentPage)
+    productSectionRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [currentPage])
 
   return (
     <div>
-
-
-      <div className="mx-auto md:container py-8">
+      <div ref={productSectionRef} className="mx-auto md:container py-8">
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-2xl font-semibold">สินค้าแนะนำ</h1>
           <div className="text-sm text-muted-foreground">
@@ -51,7 +59,14 @@ export default function HomePage() {
           </div>
         </div>
 
-        <ProductGrid products={products} loading={loading} />
+        <div className='flex flex-col gap-8'>
+          <ProductGrid products={products} loading={loading} />
+          <Paginator
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={(page) => setCurrentPage(page)}
+          />
+        </div>
       </div>
     </div>
   )

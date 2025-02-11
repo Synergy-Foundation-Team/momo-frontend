@@ -39,24 +39,31 @@ export function ProductCard({ product, onAddToCart, onAddToWishlist }: ProductCa
         </div>
       </Link>
 
-      <CardContent className="p-4">
-        <Link href={`/products/${id}`}>
-          <h3 className="font-medium text-sm line-clamp-2 mb-2 hover:text-primary">
-            {name}
-          </h3>
-        </Link>
+      <CardContent className="p-4 flex justify-between">
+        <div>
+          <Link href={`/products/${id}`}>
+            <h3 className="font-medium text-sm line-clamp-2 mb-2 hover:text-primary">
+              {name}
+            </h3>
+          </Link>
 
-        <div className="flex flex-col">
-          <div className="text-primary font-semibold">{formattedPrice}</div>
-          {formattedOriginalPrice && (
-            <div className="text-sm text-muted-foreground line-through">
-              {formattedOriginalPrice}
-            </div>
-          )}
+          <div className="flex flex-col">
+            <div className="text-primary font-semibold">{formattedPrice}</div>
+            {formattedOriginalPrice && (
+              <div className="text-sm text-muted-foreground line-through">
+                {formattedOriginalPrice}
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className='md:hidden'>
+          <Button variant="secondary" size="icon" className="rounded-full w-10 h-10 flex items-center justify-center" onClick={() => onAddToCart?.(product)}><ShoppingCart className="h-4 w-4" /></Button>
         </div>
       </CardContent>
 
-      <CardFooter className="p-4 pt-0 flex gap-2">
+
+      <CardFooter className="hidden p-4 pt-0 md:flex gap-2">
         <Button
           variant="secondary"
           size="icon"
