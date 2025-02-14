@@ -7,8 +7,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useCartStore } from '@/store/cart'
 import { useEffect, useState } from 'react'
+import OrderSummary from '@/components/order/summary'
 
-export default function CartPage() {
+export default function ListOrder() {
   const [mounted, setMounted] = useState(false)
   const { items, totalPrice, updateQuantity, removeItem } = useCartStore()
 
@@ -94,21 +95,21 @@ export default function CartPage() {
                 {/* <div className="flex flex-1 flex-col"> */}
                 <div className="flex flex-1 flex-col items-end">
                   {/* <div className="flex justify-between">
-                    <Link
-                      href={`/${item.id}`}
-                      className="font-medium hover:text-primary"
-                    >
-                      {item.name}
-                    </Link>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="h-8 w-8 text-muted-foreground hover:text-destructive"
-                      onClick={() => removeItem(item.id)}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </div> */}
+                        <Link
+                          href={`/${item.id}`}
+                          className="font-medium hover:text-primary"
+                        >
+                          {item.name}
+                        </Link>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-8 w-8 text-muted-foreground hover:text-destructive"
+                          onClick={() => removeItem(item.id)}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div> */}
 
                   <div className="mt-4 flex items-end justify-between">
                     <div className="inline-flex items-center rounded-lg border bg-background p-1">
@@ -149,37 +150,20 @@ export default function CartPage() {
             ))}
           </div>
         </div>
-
-        <div className="lg:col-span-1">
-          <div className="rounded-lg border bg-card p-6">
-            <h2 className="text-lg font-semibold">สรุปคำสั่งซื้อ</h2>
-
-            <div className="mt-6 space-y-4">
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">ราคารวม</span>
-                <span>฿{totalPrice.toFixed(2)}</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">ส่วนลด</span>
-                <span className="text-red-600">-฿{discount.toFixed(2)}</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">ค่าจัดส่ง</span>
-                <span>{shipping === 0 ? 'ฟรี' : `฿${shipping.toFixed(2)}`}</span>
-              </div>
-              <div className="border-t pt-4">
-                <div className="flex justify-between">
-                  <span className="font-medium">ยอดรวมทั้งหมด</span>
-                  <span className="font-medium">฿{total.toFixed(2)}</span>
-                </div>
-              </div>
-            </div>
-
+        <div>
+          <OrderSummary />
+          <Link href="/shipping">
             <Button className="mt-6 w-full" size="lg">
-              ไปชำระเงิน
+              ยืนยันการสั่งซื้อ
             </Button>
-          </div>
+          </Link>
+          <Link href="/">
+            <Button className="mt-6 w-full" size="lg">
+              ช็อปปิ้งต่อ
+            </Button>
+          </Link>
         </div>
+
       </div>
     </div >
   )
