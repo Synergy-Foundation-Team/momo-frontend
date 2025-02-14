@@ -55,7 +55,7 @@ export function Paginator({ currentPage, totalPages, onPageChange }: PaginatorPr
                     <PaginationLink
                         onClick={() => handlePageClick(i)}
                         isActive={i === currentPage}
-                        className={i === currentPage ? "bg-green-300" : ""}
+                        className={i === currentPage ? "bg-primary" : ""}
                     >
                         {i}
                     </PaginationLink>

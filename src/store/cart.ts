@@ -40,7 +40,7 @@ export const useCartStore = create<CartStore>()(
   persist(
     (set, get) => ({
       items: [...mockItems],
-      totalItems: 0,
+      totalItems: 11,
       totalPrice: 0,
       addItem: item => {
         const currentItems = get().items

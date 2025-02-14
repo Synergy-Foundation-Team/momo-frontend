@@ -6,7 +6,6 @@ import { Paginator } from '@/components/ui/Paginator'
 import { useEffect, useState, useRef } from 'react'
 
 
-
 export default function HomePage() {
   const productSectionRef = useRef<HTMLDivElement>(null)
   const [loading, setLoading] = useState(true)
@@ -21,7 +20,7 @@ export default function HomePage() {
       await new Promise((resolve) => setTimeout(resolve, 1000))
 
       // Simulate pagination with sample data
-      const totalItems = 50 // Total number of products
+      const totalItems = 50 // Total number of produ cts
       const calculatedTotalPages = Math.ceil(totalItems / itemsPerPage)
       setTotalPages(calculatedTotalPages)
 
