@@ -33,29 +33,32 @@ module.exports = {
     // React rules
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
-    "react/jsx-curly-brace-presence": ["error", { props: "never", children: "never" }],
-    
+    "react/jsx-curly-brace-presence": [
+      "error",
+      { props: "never", children: "never" },
+    ],
+
     // TypeScript rules
-    "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+    "@typescript-eslint/no-unused-vars": ["warn", { varsIgnorePattern: "^_", argsIgnorePattern: "^_", destructuredArrayIgnorePattern: "^_" }],
     "@typescript-eslint/no-explicit-any": "warn",
     "@typescript-eslint/consistent-type-imports": [
       "warn",
       { prefer: "type-imports", fixStyle: "inline-type-imports" },
     ],
-    
+
     // Import rules
     "import/prefer-default-export": "off",
-    
+
     // General rules
     "no-console": ["warn", { allow: ["warn", "error"] }],
     "no-unused-vars": "off", // Using TypeScript's checker instead
     "prefer-const": "error",
     "no-duplicate-imports": "error",
-    
+
     // Tailwind rules
     "tailwindcss/no-custom-classname": "warn",
     "tailwindcss/enforces-negative-arbitrary-values": "warn",
-    
+
     // Next.js rules
     "@next/next/no-html-link-for-pages": "error",
   },
