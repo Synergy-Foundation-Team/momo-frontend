@@ -8,10 +8,11 @@ import Link from 'next/link'
 import { useCartStore } from '@/store/cart'
 import { useEffect, useState } from 'react'
 import OrderSummary from '@/components/order/summary'
+import OrderDetail from '@/components/order/orderDetail'
 
 export default function ListOrder() {
   const [mounted, setMounted] = useState(false)
-  const { items, totalPrice, updateQuantity, removeItem } = useCartStore()
+  const { items } = useCartStore()
 
   // Handle hydration mismatch
   useEffect(() => {
@@ -19,30 +20,6 @@ export default function ListOrder() {
   }, [])
 
   if (!mounted) return null
-
-  const discount = totalPrice * 0.1 // 10% discount
-  const shipping = totalPrice > 1000 ? 0 : 50 // Free shipping over 1000 baht
-  const total = totalPrice - discount + shipping
-
-
-  if (items.length === 0) {
-    return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="mb-6">
-          <h1 className="text-2xl font-semibold text-[#1B4B66]">ชำระเงิน</h1>
-          <div className="mt-1 text-sm text-muted-foreground">
-            ไม่มีสินค้าในตะกร้า
-          </div>
-        </div>
-        <div className="rounded-lg border bg-card p-8 text-center">
-          <p className="text-muted-foreground">ตะกร้าของคุณว่างเปล่า</p>
-          <Button className="mt-4" asChild>
-            <Link href="/">เลือกซื้อสินค้า</Link>
-          </Button>
-        </div>
-      </div>
-    )
-  }
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -58,13 +35,32 @@ export default function ListOrder() {
               <div className="text-base font-semibold text-[#1B4B66]">
                 ช่องทางการชำระเงิน
               </div>
-              
+            </div>
+            <div className="flex items-center gap-4 rounded-lg  p-4">
+              <div className="relative aspect-square h-24 flex-shrink-0 overflow-hidden rounded-md">
+                <Image
+                  src="/images/qr-code-payment.png"
+                  alt="qr-code-payment"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            </div>
+            <div className='flex items-center justify-between'>
+              <Button className="mt-6 w-full" size="lg">
+                ยืนยันการชำระเงิน
+              </Button>
             </div>
           </div>
         </div>
 
         <div>
-          <OrderSummary />
+          <div className='mb-2'>
+            <OrderDetail />
+          </div>
+          <div>
+            <OrderSummary />
+          </div>
           <Link href="/">
             <Button className="mt-6 w-full" size="lg">
               ช็อปปิ้งต่อ

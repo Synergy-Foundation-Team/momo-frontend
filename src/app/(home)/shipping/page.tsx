@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { useCartStore } from '@/store/cart'
 import { useEffect, useState } from 'react'
 import OrderSummary from '@/components/order/summary'
+import OrderDetail from '@/components/order/orderDetail'
 
 export default function ListOrder() {
   const [mounted, setMounted] = useState(false)
@@ -59,68 +60,73 @@ export default function ListOrder() {
                 กรอกข้อมูลการจัดส่ง
               </div>
             </div>
-              <div>
-                <Input
-                  type="text"
-                  placeholder="ชื่อ-นามสกุล"
-                  className="w-full pl-10"
-                />
-              </div>
-              <div>
-                <Input
-                  type="text"
-                  placeholder="เบอร์โทรศัพท์"
-                  className="w-full pl-10"
-                />
-              </div>
-              <div>
-                <Input
-                  type="text"
-                  placeholder="ที่อยู่"
-                  className="w-full pl-10"
-                />
-              </div>
-              <div>
-                <Input
-                  type="text"
-                  placeholder="ถนน"
-                  className="w-full pl-10"
-                />
-              </div>
-              <div>
-                <Input
-                  type="text"
-                  placeholder="ตำบล"
-                  className="w-full pl-10"
-                />
-              </div>
-              <div>
-                <Input
-                  type="text"
-                  placeholder="อำเภอ"
-                  className="w-full pl-10"
-                />
-              </div>
-              <div>
-                <Input
-                  type="text"
-                  placeholder="จังหวัด"
-                  className="w-full pl-10"
-                />
-              </div>
-              <div>
-                <Input
-                  type="text"
-                  placeholder="รหัสไปรษณีย์"
-                  className="w-full pl-10"
-                />
-              </div>
+            <div>
+              <Input
+                type="text"
+                placeholder="ชื่อ-นามสกุล"
+                className="w-full pl-10"
+              />
+            </div>
+            <div>
+              <Input
+                type="text"
+                placeholder="เบอร์โทรศัพท์"
+                className="w-full pl-10"
+              />
+            </div>
+            <div>
+              <Input
+                type="text"
+                placeholder="ที่อยู่"
+                className="w-full pl-10"
+              />
+            </div>
+            <div>
+              <Input
+                type="text"
+                placeholder="ถนน"
+                className="w-full pl-10"
+              />
+            </div>
+            <div>
+              <Input
+                type="text"
+                placeholder="ตำบล"
+                className="w-full pl-10"
+              />
+            </div>
+            <div>
+              <Input
+                type="text"
+                placeholder="อำเภอ"
+                className="w-full pl-10"
+              />
+            </div>
+            <div>
+              <Input
+                type="text"
+                placeholder="จังหวัด"
+                className="w-full pl-10"
+              />
+            </div>
+            <div>
+              <Input
+                type="text"
+                placeholder="รหัสไปรษณีย์"
+                className="w-full pl-10"
+              />
+            </div>
 
           </div>
         </div>
 
         <div>
-          <OrderSummary />
+          <div className='mb-2'>
+            <OrderDetail />
+          </div>
+          <div>
+            <OrderSummary />
+          </div>
           <Link href="/payment">
             <Button className="mt-6 w-full" size="lg">
               ชำระเงิน
