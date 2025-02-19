@@ -14,6 +14,7 @@ import { Separator } from "@/ui/separator"
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/ui/sidebar"
 
 import { AppSidebar } from "@/components/layouts/AppSidebar"
+import React from "react"
 
 // Define the layout component that accepts page content through `children`
 export default function AdminLayout({
@@ -44,23 +45,18 @@ export default function AdminLayout({
                   const isLast = index === pathSegments.length - 1
 
                   return (
-                    <BreadcrumbItem key={href}>
-                      {!isLast ? (
-                        <>
-                          <BreadcrumbSeparator />
+                    <React.Fragment key={href}>
+                      <BreadcrumbSeparator />
+                      <BreadcrumbItem>
+                        {!isLast ? (
                           <BreadcrumbLink href={href}>
                             {decodeURIComponent(segment)}
-                          </BreadcrumbLink>
-                        </>
-                      ) : (
-                        <>
-                          <BreadcrumbSeparator />
+                          </BreadcrumbLink>) : (
                           <BreadcrumbPage>
                             {decodeURIComponent(segment)}
-                          </BreadcrumbPage>
-                        </>
-                      )}
-                    </BreadcrumbItem>
+                          </BreadcrumbPage>)}
+                      </BreadcrumbItem>
+                    </React.Fragment>
                   )
                 })}
               </BreadcrumbList>

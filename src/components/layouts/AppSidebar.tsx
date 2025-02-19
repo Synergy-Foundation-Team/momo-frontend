@@ -1,5 +1,6 @@
 "use client"
 
+import { motion } from "framer-motion";
 import { useAlertDialog } from "@/store/alert-dialog"
 import { Button } from "@/ui/button"
 import {
@@ -81,9 +82,30 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader>
         {/* <TeamSwitcher teams={data.teams} /> */}
         <div className="flex items-center justify-center gap-2 overflow-hidden text-4xl font-bold text-primary">
-          <span className="transition-all duration-300 ease-in-out">
+          <motion.span
+            key={isCollapsed ? "collapsed" : "expanded"}
+            initial={{ 
+              opacity: 0, 
+              x: isCollapsed ? -20 : 20,
+              rotateY: isCollapsed ? 90 : -90
+            }}
+            animate={{ 
+              opacity: 1, 
+              x: 0,
+              rotateY: 0
+            }}
+            exit={{ 
+              opacity: 0,
+              x: isCollapsed ? 20 : -20,
+              rotateY: isCollapsed ? -90 : 90
+            }}
+            transition={{ 
+              duration: 0.4,
+              ease: [0.4, 0, 0.2, 1]
+            }}
+          >
             {isCollapsed ? "M" : "MOMO STORE"}
-          </span>
+          </motion.span>
         </div>
       </SidebarHeader>
       <SidebarContent>
