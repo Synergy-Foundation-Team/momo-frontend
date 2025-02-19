@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useRef, useState } from "react"
+import Image from "next/image"
 import { Button } from "@/ui/button"
 import { Card } from "@/ui/card"
 import {
@@ -25,29 +26,25 @@ export default function BannerUploader() {
     file: File,
     callback: (resizedDataUrl: string) => void
   ) => {
-    const img = new Image()
+    const img = document.createElement("img") as HTMLImageElement
     img.src = URL.createObjectURL(file)
     img.onload = () => {
       const canvas = document.createElement("canvas")
       const ctx = canvas.getContext("2d")
       if (!ctx) return
 
-      // Set canvas size to 1284x400
       canvas.width = 1284
       canvas.height = 400
 
-      // Calculate scaling to maintain aspect ratio
       const scale = Math.max(1284 / img.width, 400 / img.height)
       const newWidth = img.width * scale
       const newHeight = img.height * scale
 
-      // Center the image on canvas
       const offsetX = (1284 - newWidth) / 2
       const offsetY = (400 - newHeight) / 2
 
       ctx.drawImage(img, offsetX, offsetY, newWidth, newHeight)
 
-      // Convert canvas to Data URL and return
       callback(canvas.toDataURL("image/jpeg", 0.9))
     }
   }
@@ -84,11 +81,12 @@ export default function BannerUploader() {
           onClick={() => mainInputRef.current?.click()}
         >
           {mainBanner ? (
-            <>
-              <img
-                src={mainBanner}
+            <div className="relative h-full w-full rounded-md">
+              <Image
+                src={mainBanner || "/transparent-placeholder.png"} // Fallback transparent image
                 alt="Main Banner"
-                className="h-full w-full rounded-md object-cover"
+                layout="fill"
+                objectFit="cover"
               />
               <Button
                 className="absolute right-2 top-[-20px] bg-[#FF5465] text-white"
@@ -100,7 +98,7 @@ export default function BannerUploader() {
               >
                 แก้ไขรูปภาพ
               </Button>
-            </>
+            </div>
           ) : (
             <span className="text-lg text-gray-500">+ เพิ่มรูปภาพ</span>
           )}
@@ -122,11 +120,12 @@ export default function BannerUploader() {
           onClick={() => secondInputRef.current?.click()}
         >
           {secondBanner ? (
-            <>
-              <img
-                src={secondBanner}
+            <div className="relative h-full w-full rounded-md">
+              <Image
+                src={secondBanner || "/transparent-placeholder.png"} // Fallback transparent image
                 alt="Second Banner"
-                className="h-full w-full rounded-md object-cover"
+                layout="fill"
+                objectFit="cover"
               />
               <Button
                 className="absolute right-2 top-[-20px] bg-[#FF5465] text-white"
@@ -138,7 +137,7 @@ export default function BannerUploader() {
               >
                 แก้ไขรูปภาพ
               </Button>
-            </>
+            </div>
           ) : (
             <span className="text-lg text-gray-500">+ เพิ่มรูปภาพ</span>
           )}
@@ -152,7 +151,7 @@ export default function BannerUploader() {
         />
       </Card>
 
-      {/* Save Button Fixed at Bottom */}
+      {/* Save Button */}
       <div className="">
         <Button
           className="w-full"

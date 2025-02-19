@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+// Required for usePathname()
 import { usePathname } from "next/navigation"
 import {
   Breadcrumb,
@@ -44,20 +44,23 @@ export default function AdminLayout({
                   const isLast = index === pathSegments.length - 1
 
                   return (
-                    <React.Fragment key={href}>
-                      <BreadcrumbSeparator />
-                      <BreadcrumbItem>
-                        {!isLast ? (
+                    <BreadcrumbItem key={href}>
+                      {!isLast ? (
+                        <>
+                          <BreadcrumbSeparator />
                           <BreadcrumbLink href={href}>
                             {decodeURIComponent(segment)}
                           </BreadcrumbLink>
-                        ) : (
+                        </>
+                      ) : (
+                        <>
+                          <BreadcrumbSeparator />
                           <BreadcrumbPage>
                             {decodeURIComponent(segment)}
                           </BreadcrumbPage>
-                        )}
-                      </BreadcrumbItem>
-                    </React.Fragment>
+                        </>
+                      )}
+                    </BreadcrumbItem>
                   )
                 })}
               </BreadcrumbList>
@@ -68,5 +71,6 @@ export default function AdminLayout({
         <main className="p-4">{children}</main>
       </SidebarInset>
     </SidebarProvider>
+    // <main className="p-4">{children}</main>
   )
 }
