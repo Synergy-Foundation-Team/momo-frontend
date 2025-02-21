@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="th">
+    <html lang="en">
       <body
         className={`${kanit.variable} font-sans antialiased`}
         suppressHydrationWarning>
