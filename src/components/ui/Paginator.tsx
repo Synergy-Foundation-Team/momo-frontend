@@ -55,7 +55,7 @@ export function Paginator({ currentPage, totalPages, onPageChange }: PaginatorPr
                     <PaginationLink
                         onClick={() => handlePageClick(i)}
                         isActive={i === currentPage}
-                        className={i === currentPage ? "bg-green-300" : ""}
+                        className={i === currentPage ? "bg-primary" : ""}
                     >
                         {i}
                     </PaginationLink>
@@ -87,12 +87,14 @@ export function Paginator({ currentPage, totalPages, onPageChange }: PaginatorPr
     return (
         <Pagination className="w-full">
             <PaginationContent>
-                <PaginationItem>
-                    <PaginationPrevious
-                        onClick={() => handlePageClick(currentPage - 1)}
-                        className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
-                    />
-                </PaginationItem>
+                {currentPage > 1 && (
+                    <PaginationItem>
+                        <PaginationPrevious
+                            onClick={() => handlePageClick(currentPage - 1)}
+                            className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                        />
+                    </PaginationItem>
+                )}
                 {renderPageNumbers()}
                 <PaginationItem>
                     <PaginationNext
