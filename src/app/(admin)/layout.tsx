@@ -67,6 +67,5 @@ export default function AdminLayout({
         <main className="p-4">{children}</main>
       </SidebarInset>
     </SidebarProvider>
-    // <main className="p-4">{children}</main>
   )
 }

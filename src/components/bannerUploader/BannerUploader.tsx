@@ -2,6 +2,10 @@
 
 import React, { useRef, useState } from "react"
 import Image from "next/image"
+import ReactCrop, { Crop } from "react-image-crop"
+
+import "react-image-crop/dist/ReactCrop.css"
+
 import { Button } from "@/ui/button"
 import { Card } from "@/ui/card"
 import {
@@ -11,174 +15,183 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/ui/dialog"
-import { Loader2 } from "lucide-react"
+import { DialogDescription } from "@radix-ui/react-dialog"
+
+type BannerType = "main" | "secondary"
 
 export default function BannerUploader() {
-  const [mainBanner, setMainBanner] = useState<string | null>(null)
-  const [secondBanner, setSecondBanner] = useState<string | null>(null)
-  const [loading, setLoading] = useState(false)
-  const [showConfirm, setShowConfirm] = useState(false)
-
-  const mainInputRef = useRef<HTMLInputElement | null>(null)
-  const secondInputRef = useRef<HTMLInputElement | null>(null)
-
-  const resizeImage = (
-    file: File,
-    callback: (resizedDataUrl: string) => void
-  ) => {
-    const img = document.createElement("img") as HTMLImageElement
-    img.src = URL.createObjectURL(file)
-    img.onload = () => {
-      const canvas = document.createElement("canvas")
-      const ctx = canvas.getContext("2d")
-      if (!ctx) return
-
-      canvas.width = 1284
-      canvas.height = 400
-
-      const scale = Math.max(1284 / img.width, 400 / img.height)
-      const newWidth = img.width * scale
-      const newHeight = img.height * scale
-
-      const offsetX = (1284 - newWidth) / 2
-      const offsetY = (400 - newHeight) / 2
-
-      ctx.drawImage(img, offsetX, offsetY, newWidth, newHeight)
-
-      callback(canvas.toDataURL("image/jpeg", 0.9))
-    }
+  const [banners, setBanners] = useState<{
+    [key in BannerType]: string | null
+  }>({
+    main: null,
+    secondary: null,
+  })
+  const [cropImages, setCropImages] = useState<{
+    [key in BannerType]: string | null
+  }>({
+    main: null,
+    secondary: null,
+  })
+  const [showCropper, setShowCropper] = useState<{
+    [key in BannerType]: boolean
+  }>({
+    main: false,
+    secondary: false,
+  })
+  const [currentBanner, setCurrentBanner] = useState<BannerType | null>(null)
+  const [crop, setCrop] = useState<Crop>({
+    unit: "%",
+    width: 80,
+    height: 20,
+    aspect: 1284 / 400, // Maintain aspect ratio
+  })
+  const imgRef = useRef<HTMLImageElement | null>(null)
+  const inputRefs = {
+    main: useRef<HTMLInputElement | null>(null),
+    secondary: useRef<HTMLInputElement | null>(null),
   }
 
   const handleImageUpload = (
     event: React.ChangeEvent<HTMLInputElement>,
-    type: "main" | "second"
+    bannerType: BannerType
   ) => {
     const file = event.target.files?.[0]
     if (!file) return
-
-    resizeImage(file, resizedDataUrl => {
-      if (type === "main") setMainBanner(resizedDataUrl)
-      else setSecondBanner(resizedDataUrl)
-    })
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onloadend = () => {
+      setCropImages(prev => ({
+        ...prev,
+        [bannerType]: reader.result as string,
+      }))
+      setCurrentBanner(bannerType)
+      setShowCropper(prev => ({ ...prev, [bannerType]: true }))
+    }
   }
 
-  const handleSave = () => {
-    setLoading(true)
-    setTimeout(() => {
-      setLoading(false)
-      setShowConfirm(false)
-      alert("บันทึกแบนเนอร์เรียบร้อยแล้ว!")
-    }, 2000)
+  const getCroppedImg = () => {
+    if (!imgRef.current || !currentBanner) return
+
+    const image = imgRef.current
+    const canvas = document.createElement("canvas")
+    const scaleX = image.naturalWidth / image.width
+    const scaleY = image.naturalHeight / image.height
+    canvas.width = 1284
+    canvas.height = 400
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
+
+    const cropX = crop.x ? crop.x * scaleX : 0
+    const cropY = crop.y ? crop.y * scaleY : 0
+    const cropWidth = crop.width ? crop.width * scaleX : image.naturalWidth
+    const cropHeight = crop.height ? crop.height * scaleY : image.naturalHeight
+
+    ctx.drawImage(image, cropX, cropY, cropWidth, cropHeight, 0, 0, 1284, 400)
+
+    const croppedDataUrl = canvas.toDataURL("image/jpeg", 0.9)
+    setBanners(prev => ({ ...prev, [currentBanner]: croppedDataUrl }))
+    setShowCropper(prev => ({ ...prev, [currentBanner]: false }))
   }
 
   return (
     <div className="space-y-4 pb-20">
-      {/* Main Banner */}
-      <Card className="p-4">
-        <h2 className="mb-2 text-lg font-semibold">แบนเนอร์หลัก</h2>
-        <div
-          className="relative flex h-40 w-full cursor-pointer items-center justify-center rounded-lg border-2 border-dashed border-gray-300 hover:border-gray-500"
-          onClick={() => mainInputRef.current?.click()}
+      {(["main", "secondary"] as BannerType[]).map(bannerType => (
+        <Card
+          key={bannerType}
+          className="p-4 transition-all duration-300 hover:scale-105 hover:shadow-lg"
         >
-          {mainBanner ? (
-            <div className="relative h-full w-full rounded-md">
-              <Image
-                src={mainBanner || "/transparent-placeholder.png"} // Fallback transparent image
-                alt="Main Banner"
-                layout="fill"
-                objectFit="cover"
-              />
-              <Button
-                className="absolute right-2 top-[-20px] bg-[#FF5465] text-white"
-                size="sm"
-                onClick={e => {
-                  e.stopPropagation()
-                  mainInputRef.current?.click()
-                }}
-              >
-                แก้ไขรูปภาพ
-              </Button>
-            </div>
-          ) : (
-            <span className="text-lg text-gray-500">+ เพิ่มรูปภาพ</span>
-          )}
-        </div>
-        <input
-          type="file"
-          accept="image/*"
-          ref={mainInputRef}
-          className="hidden"
-          onChange={e => handleImageUpload(e, "main")}
-        />
-      </Card>
+          <h2 className="mb-2 text-lg font-semibold">
+            {bannerType === "main" ? "แบนเนอร์หลัก" : "แบนเนอร์รอง"}{" "}
+            <span className="text-sm text-gray-400">(1024x400)</span>
+          </h2>
+          <div
+            className="relative flex h-40 w-full cursor-pointer items-center justify-center rounded-lg border-2 border-dashed border-gray-300 hover:border-gray-500"
+            onClick={() => inputRefs[bannerType].current?.click()}
+          >
+            {banners[bannerType] ? (
+              <div className="relative h-full w-full">
+                <Image
+                  src={banners[bannerType]!}
+                  alt={`${bannerType} banner`}
+                  layout="fill"
+                  objectFit="cover"
+                />
+                <Button
+                  className="absolute right-[70px] top-[-20px] text-white"
+                  size="sm"
+                  onClick={e => {
+                    e.stopPropagation()
+                    inputRefs[bannerType].current?.click()
+                  }}
+                >
+                  แก้ไขรูปภาพ
+                </Button>
+                <Button
+                  className="absolute right-2 top-[-20px] bg-[#FF5465] text-white"
+                  size="sm"
+                  onClick={e => {
+                    setBanners(prev => ({ ...prev, [bannerType]: null }))
+                    e.stopPropagation()
+                  }}
+                >
+                  ลบ
+                </Button>
+              </div>
+            ) : (
+              <span className="text-lg text-gray-500">+ อัพโหลดรูปภาพ</span>
+            )}
+          </div>
+          <input
+            type="file"
+            accept="image/*"
+            ref={inputRefs[bannerType]}
+            className="hidden"
+            onChange={e => handleImageUpload(e, bannerType)}
+          />
+        </Card>
+      ))}
 
-      {/* Second Banner */}
-      <Card className="p-4">
-        <h2 className="mb-2 text-lg font-semibold">แบนเนอร์รอง</h2>
-        <div
-          className="relative flex h-40 w-full cursor-pointer items-center justify-center rounded-lg border-2 border-dashed border-gray-300 hover:border-gray-500"
-          onClick={() => secondInputRef.current?.click()}
+      {/* Cropper Dialog */}
+      {currentBanner && showCropper[currentBanner] && (
+        <Dialog
+          open={showCropper[currentBanner]}
+          onOpenChange={() =>
+            setShowCropper(prev => ({ ...prev, [currentBanner]: false }))
+          }
         >
-          {secondBanner ? (
-            <div className="relative h-full w-full rounded-md">
-              <Image
-                src={secondBanner || "/transparent-placeholder.png"} // Fallback transparent image
-                alt="Second Banner"
-                layout="fill"
-                objectFit="cover"
-              />
-              <Button
-                className="absolute right-2 top-[-20px] bg-[#FF5465] text-white"
-                size="sm"
-                onClick={e => {
-                  e.stopPropagation()
-                  secondInputRef.current?.click()
-                }}
-              >
-                แก้ไขรูปภาพ
-              </Button>
-            </div>
-          ) : (
-            <span className="text-lg text-gray-500">+ เพิ่มรูปภาพ</span>
-          )}
-        </div>
-        <input
-          type="file"
-          accept="image/*"
-          ref={secondInputRef}
-          className="hidden"
-          onChange={e => handleImageUpload(e, "second")}
-        />
-      </Card>
-
-      {/* Save Button */}
-      <div className="">
-        <Button
-          className="w-full"
-          onClick={() => setShowConfirm(true)}
-          disabled={loading}
-        >
-          {loading ? <Loader2 className="mr-2 animate-spin" /> : null}
-          {loading ? "กำลังบันทึก..." : "บันทึก"}
-        </Button>
-      </div>
-
-      {/* Confirm Dialog */}
-      {showConfirm && (
-        <Dialog open={showConfirm} onOpenChange={setShowConfirm}>
-          <DialogContent className="bg-white">
+          <DialogContent className="max-fit w-[90vw] bg-white">
             <DialogHeader>
-              <DialogTitle>ยืนยันการบันทึก</DialogTitle>
+              <DialogTitle>ครอบตัดรูปภาพ</DialogTitle>
+              <DialogDescription></DialogDescription>
             </DialogHeader>
-            <p>คุณต้องการบันทึกแบนเนอร์ที่เลือกใช่หรือไม่?</p>
+            <div className="relative flex w-full justify-center bg-gray-200">
+              {cropImages[currentBanner] && (
+                <ReactCrop
+                  src={cropImages[currentBanner]!}
+                  crop={crop}
+                  onChange={setCrop}
+                  aspect={1284 / 400}
+                >
+                  <Image
+                    ref={imgRef}
+                    src={cropImages[currentBanner]!}
+                    alt="Crop preview"
+                    width={1284}
+                    height={400}
+                  />
+                </ReactCrop>
+              )}
+            </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setShowConfirm(false)}>
+              <Button
+                variant="outline"
+                onClick={() =>
+                  setShowCropper(prev => ({ ...prev, [currentBanner]: false }))
+                }
+              >
                 ยกเลิก
               </Button>
-              <Button onClick={handleSave} disabled={loading}>
-                {loading ? <Loader2 className="mr-2 animate-spin" /> : null}
-                {loading ? "กำลังบันทึก..." : "ยืนยัน"}
-              </Button>
+              <Button onClick={getCroppedImg}>บันทึก</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>

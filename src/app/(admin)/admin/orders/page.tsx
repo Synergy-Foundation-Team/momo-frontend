@@ -118,7 +118,7 @@ export type Orders = {
   actionBy: string
 }
 
-export const columns: ColumnDef<Orders>[] = [
+const columns: ColumnDef<Orders>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -173,7 +173,7 @@ export const columns: ColumnDef<Orders>[] = [
       const orderId = row.original.id
 
       return (
-        <Link href={`/orders/${orderId}`} className="lowercase text-blue-500">
+        <Link href={`/admin/orders/${orderId}`} className="lowercase text-blue-500">
           {row.getValue("ordersName")}
         </Link>
       )
@@ -268,7 +268,7 @@ export const columns: ColumnDef<Orders>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>จัดการออเดอร์</DropdownMenuLabel>
             <DropdownMenuItem>
-              <Link href={`/orders/${order.id}`} className="text-blue-500">
+              <Link href={`/admin/orders/${order.id}`} className="text-blue-500">
                 ดูรายละเอียด
               </Link>
             </DropdownMenuItem>
