@@ -6,11 +6,11 @@ type Props = {
     children: React.ReactNode
 }
 
-export default function LogInLayout({ children }: Props) {
+export default function LogInLayout({ children }: Readonly<Props>) {
     return (
-        <div className="min-h-screen flex flex-col">
+        <div className="flex flex-col min-h-screen">
             <Navbar />
-            <main className="flex-1 container mx-auto px-4 py-8">{children}</main>
+            <main className="flex-1 container mx-auto px-4 py-8 justify-center items-center h-full">{children}</main>
             <Footer />
         </div>
     )

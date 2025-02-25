@@ -167,7 +167,7 @@ export default function BannerUploader() {
             <div className="relative flex w-full justify-center bg-gray-200">
               {cropImages[currentBanner] && (
                 <ReactCrop
-                  src={cropImages[currentBanner]!}
+                  // src={cropImages[currentBanner]!}
                   crop={crop}
                   onChange={setCrop}
                   aspect={1284 / 400}
