@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Kanit } from "next/font/google";
 import "./globals.css";
 import { AlertDialog } from "@/components/ui/alert-dialog";
+import { LoadingOverlay } from "@/components/LoadingOverlay";
 
 const kanit = Kanit({
   subsets: ["latin", "thai"],
@@ -26,6 +27,7 @@ export default function RootLayout({
         suppressHydrationWarning>
         {children}
         <AlertDialog />
+        <LoadingOverlay />
       </body>
     </html>
   );

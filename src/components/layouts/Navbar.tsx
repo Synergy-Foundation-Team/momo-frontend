@@ -4,10 +4,11 @@ import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { useCartStore } from "@/store/cart"
+import { useAuthStore } from "@/store/auth"
 import { Button } from "@/ui/button"
 import { Input } from "@/ui/input"
-import { Heart, Search, ShoppingBag, User } from "lucide-react"
-
+import { Heart, LogIn, LogOut, Search, ShoppingBag, User } from "lucide-react"
+import { redirect } from "next/navigation"
 import { SearchCommand } from "@/components/SearchCommand"
 
 import { MobileMenu } from "./MobileMenu"
@@ -15,6 +16,15 @@ import { MobileMenu } from "./MobileMenu"
 export default function Navbar() {
     const totalItems = useCartStore(state => state.totalItems)
     const [open, setOpen] = useState(false)
+    const { user, isAuthenticated, login, logout } = useAuthStore()
+
+    const handleLogin = () => {
+        redirect('/login')
+    }
+
+    const handleLogout = () => {
+        logout()
+    }
 
     return (
         <nav className="sticky left-0 right-0 top-0 z-50 border-b bg-white/80 backdrop-blur-md">
@@ -87,9 +97,6 @@ export default function Navbar() {
                             <Button variant="ghost" size="icon">
                                 <Heart className="h-5 w-5" />
                             </Button>
-                            <Button variant="ghost" size="icon">
-                                <User className="h-5 w-5" />
-                            </Button>
                             <Button variant="ghost" size="icon" className="relative" asChild>
                                 <Link href="/cart">
                                     <ShoppingBag className="h-5 w-5" />
@@ -100,6 +107,20 @@ export default function Navbar() {
                                     )}
                                 </Link>
                             </Button>
+                            {isAuthenticated ? (
+                                <>
+                                    <Button variant="ghost" size="icon">
+                                        <User className="h-5 w-5" />
+                                    </Button>
+                                    <Button variant="destructive" size="icon" onClick={handleLogout}>
+                                        <LogOut className="h-5 w-5" />
+                                    </Button>
+                                </>
+                            ) : (
+                                <Button variant="secondary" size="icon" onClick={handleLogin}>
+                                    <LogIn className="h-5 w-5" />
+                                </Button>
+                            )}
                         </div>
                         <MobileMenu totalItems={totalItems} />
                     </div>

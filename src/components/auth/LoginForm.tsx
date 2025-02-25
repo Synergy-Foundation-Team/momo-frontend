@@ -10,6 +10,9 @@ import { useForm } from 'react-hook-form'
 import { LoginSchema, loginSchema } from '@/lib/validations/auth'
 import { Eye, EyeOff } from 'lucide-react'
 import { useState } from 'react'
+import { useAuthStore } from '@/store/auth'
+import { useLoadingStore } from '@/store/loading'
+import { redirect } from 'next/navigation'
 
 export interface LoginFormProps {
     onSubmit: (data: LoginSchema) => Promise<void>
@@ -25,6 +28,27 @@ export function LoginForm({ onSubmit }: Readonly<LoginFormProps>) {
             remember: false
         }
     })
+    const { login, logout, isAuthenticated, user } = useAuthStore()
+    const { setLoading, isLoading } = useLoadingStore()
+
+    const handleLogin = async () => {
+        try {
+            setLoading(true, 'กำลังเข้าสู่ระบบ...')
+            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 1500))
+
+            login({
+                id: '1',
+                name: 'John Doe',
+                phone: '0123456789',
+                isShop: false
+            })
+
+            redirect('/')
+        } finally {
+            setLoading(false)
+        }
+    }
 
     return (
         <div className="w-full px-4">
@@ -103,7 +127,7 @@ export function LoginForm({ onSubmit }: Readonly<LoginFormProps>) {
                         </Link>
                     </div>
 
-                    <Button type='submit' className='w-full'>
+                    <Button type='submit' className='w-full' isLoading={isLoading} onClick={handleLogin}>
                         เข้าสู่ระบบ
                     </Button>
 

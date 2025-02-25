@@ -9,6 +9,7 @@ import { RegisterSchema, registerSchema } from '@/lib/validations/auth'
 import { Checkbox } from '@/ui/checkbox'
 import Link from 'next/link'
 import React from 'react'
+import OneTimePassForm from './OneTimePassForm'
 
 export interface RegisterFormProps {
     onSubmit: (data: RegisterSchema) => Promise<void>
@@ -26,16 +27,19 @@ export function RegisterForm({ onSubmit }: Readonly<RegisterFormProps>) {
         }
     })
 
-    const [otpFormPopup, setOtpFormPopup] = React.useState<boolean>(false)
+    const [otpFormOpen, setOtpFormOpen] = React.useState<boolean>(false)
     const [isSendingCode, setIsSendingCode] = React.useState<boolean>(false)
-    const [countdown, setCountdown] = React.useState<number | undefined>(3)
+    const [isVerifyingCode, setIsVerifyingCode] = React.useState<boolean>(false)
+
+    const [countdown, setCountdown] = React.useState<number>(3)
 
     const onSendCode = async () => {
         setIsSendingCode(true)
         try {
             // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 3000))
-            setOtpFormPopup(true)
+            await new Promise(resolve => setTimeout(resolve, 1000))
+
+            setOtpFormOpen(true)
         } catch (error) {
             console.error('Failed to send code:', error)
         } finally {
@@ -43,8 +47,29 @@ export function RegisterForm({ onSubmit }: Readonly<RegisterFormProps>) {
         }
     }
 
+    const handleVerifyOtp = async (otp: string) => {
+        setIsVerifyingCode(true)
+        try {
+            // Simulate OTP verification
+            await new Promise(resolve => setTimeout(resolve, 1000))
+            // If verification successful, close dialog and continue with form submission
+            setOtpFormOpen(false)
+            // You can store the verification status in state if needed
+        } catch (error) {
+            console.error('Failed to verify OTP:', error)
+        } finally {
+            setIsVerifyingCode(false)
+        }
+    }
+
     return (
-        <div className="min-h-full w-full px-4">
+        <div className="h-full w-full px-4">
+            <OneTimePassForm
+                open={otpFormOpen}
+                onOpenChange={setOtpFormOpen}
+                onSubmit={handleVerifyOtp}
+                isVerifying={isVerifyingCode}
+            />
             <h1 className="text-2xl font-semibold mb-8 text-center">ลงทะเบียน</h1>
 
             <Form {...form}>
