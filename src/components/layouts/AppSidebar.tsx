@@ -54,7 +54,7 @@ const data = {
       items: [
         {
           title: "คำสั่งซื้อ",
-          url: "/orders",
+          url: "/admin/orders",
         },
       ],
     },
@@ -66,7 +66,7 @@ const data = {
       items: [
         {
           title: "จัดการแบนเนอร์",
-          url: "/managements/banner",
+          url: "/admin/managements/banner",
         },
       ],
     },

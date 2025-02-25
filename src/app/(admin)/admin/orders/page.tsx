@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { Button } from "@/ui/button"
 import { Checkbox } from "@/ui/checkbox"
 import {
@@ -18,7 +19,7 @@ const payments: Orders[] = [
   {
     id: "a1b2c3d4",
     customerName: "สมชาย วัฒนธรรม",
-    productName: "ออกแบบเว็บไซต์ร้านอาหาร",
+    ordersName: "ออกแบบเว็บไซต์ร้านอาหาร",
     price: 15000,
     status: "success",
     date: new Date(2024, 0, 15),
@@ -27,7 +28,7 @@ const payments: Orders[] = [
   {
     id: "e5f6g7h8",
     customerName: "วิภา สงวนศิลป์",
-    productName: "พัฒนาแอปมือถือ",
+    ordersName: "พัฒนาแอปมือถือ",
     price: 32000,
     status: "pending",
     date: new Date(2024, 2, 10),
@@ -36,7 +37,7 @@ const payments: Orders[] = [
   {
     id: "i9j1k2l3",
     customerName: "กิตติพงศ์ สมบูรณ์",
-    productName: "บริการทำ SEO",
+    ordersName: "บริการทำ SEO",
     price: 8500,
     status: "failed",
     date: new Date(2023, 10, 5),
@@ -45,7 +46,7 @@ const payments: Orders[] = [
   {
     id: "m4n5o6p7",
     customerName: "ณัฐกานต์ บัวทอง",
-    productName: "ออกแบบโลโก้บริษัท",
+    ordersName: "ออกแบบโลโก้บริษัท",
     price: 5000,
     status: "success",
     date: new Date(2024, 5, 20),
@@ -54,7 +55,7 @@ const payments: Orders[] = [
   {
     id: "q8r9s1t2",
     customerName: "ปรีชา ทองดี",
-    productName: "พัฒนาเว็บอีคอมเมิร์ซ",
+    ordersName: "พัฒนาเว็บอีคอมเมิร์ซ",
     price: 28000,
     status: "pending",
     date: new Date(2023, 8, 12),
@@ -63,7 +64,7 @@ const payments: Orders[] = [
   {
     id: "u3v4w5x6",
     customerName: "สุพรรณี ชัยชนะ",
-    productName: "จัดการโฆษณา Facebook",
+    ordersName: "จัดการโฆษณา Facebook",
     price: 12000,
     status: "success",
     date: new Date(2024, 3, 30),
@@ -72,7 +73,7 @@ const payments: Orders[] = [
   {
     id: "y7z8a9b1",
     customerName: "สมบัติ พูนสุข",
-    productName: "ออกแบบ UI/UX แอปพลิเคชัน",
+    ordersName: "ออกแบบ UI/UX แอปพลิเคชัน",
     price: 18000,
     status: "failed",
     date: new Date(2023, 6, 25),
@@ -81,7 +82,7 @@ const payments: Orders[] = [
   {
     id: "c2d3e4f5",
     customerName: "จิราพร วงศ์วาน",
-    productName: "ถ่ายภาพสินค้า",
+    ordersName: "ถ่ายภาพสินค้า",
     price: 6000,
     status: "success",
     date: new Date(2024, 9, 15),
@@ -90,7 +91,7 @@ const payments: Orders[] = [
   {
     id: "g6h7i8j9",
     customerName: "อภิชาติ เรืองศรี",
-    productName: "สร้างระบบจัดการสต๊อกสินค้า",
+    ordersName: "สร้างระบบจัดการสต๊อกสินค้า",
     price: 25000,
     status: "pending",
     date: new Date(2023, 11, 5),
@@ -99,7 +100,7 @@ const payments: Orders[] = [
   {
     id: "k1l2m3n4",
     customerName: "พิมพ์พิชชา แสงทอง",
-    productName: "เขียนคอนเทนต์การตลาด",
+    ordersName: "เขียนคอนเทนต์การตลาด",
     price: 9000,
     status: "success",
     date: new Date(2024, 7, 18),
@@ -110,14 +111,14 @@ const payments: Orders[] = [
 export type Orders = {
   id: string
   customerName: string
-  productName: string
+  ordersName: string
   price: number
   date: Date
   status: "pending" | "processing" | "success" | "failed"
   actionBy: string
 }
 
-export const columns: ColumnDef<Orders>[] = [
+const columns: ColumnDef<Orders>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -158,22 +159,27 @@ export const columns: ColumnDef<Orders>[] = [
     ),
   },
   {
-    accessorKey: "productName",
-    header: ({ column }) => {
+    accessorKey: "ordersName",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Orders Name
+        <ArrowUpDown />
+      </Button>
+    ),
+    cell: ({ row }) => {
+      const orderId = row.original.id
+
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Product Name
-          <ArrowUpDown />
-        </Button>
+        <Link href={`/admin/orders/${orderId}`} className="lowercase text-blue-500">
+          {row.getValue("ordersName")}
+        </Link>
       )
     },
-    cell: ({ row }) => (
-      <div className="lowercase">{row.getValue("productName")}</div>
-    ),
   },
+
   {
     accessorKey: "price",
     header: () => <div>Price</div>,
@@ -201,7 +207,17 @@ export const columns: ColumnDef<Orders>[] = [
   },
   {
     accessorKey: "status",
-    header: "Status",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Status
+          <ArrowUpDown />
+        </Button>
+      )
+    },
     cell: ({ row }) => {
       const status = row.getValue("status") as string
 
@@ -240,7 +256,7 @@ export const columns: ColumnDef<Orders>[] = [
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const payment = row.original
+      const order = row.original
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -251,24 +267,16 @@ export const columns: ColumnDef<Orders>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>จัดการออเดอร์</DropdownMenuLabel>
-            <DropdownMenuItem disabled>
-              <span className="text-blue-500">รับออเดอร์</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem disabled>
-              <span className="text-green-500">จัดส่ง</span>
-            </DropdownMenuItem>
             <DropdownMenuItem>
-              <span className="text-red-500">ยกเลิก</span>
+              <Link href={`/admin/orders/${order.id}`} className="text-blue-500">
+                ดูรายละเอียด
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
+              onClick={() => navigator.clipboard.writeText(order.id)}
             >
               Copy payment ID
             </DropdownMenuItem>
-            {/* <DropdownMenuSeparator />
-              <DropdownMenuLabel>ดูรายละเอียด</DropdownMenuLabel>
-            <DropdownMenuItem>ลูกค้า</DropdownMenuItem>
-            <DropdownMenuItem>การจ่ายเงิน</DropdownMenuItem> */}
           </DropdownMenuContent>
         </DropdownMenu>
       )
