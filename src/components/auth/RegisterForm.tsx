@@ -6,9 +6,9 @@ import { Input } from '@/ui/input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { RegisterSchema, registerSchema } from '@/lib/validations/auth'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select'
 import { Checkbox } from '@/ui/checkbox'
 import Link from 'next/link'
+import React from 'react'
 
 export interface RegisterFormProps {
     onSubmit: (data: RegisterSchema) => Promise<void>
@@ -26,8 +26,25 @@ export function RegisterForm({ onSubmit }: Readonly<RegisterFormProps>) {
         }
     })
 
+    const [otpFormPopup, setOtpFormPopup] = React.useState<boolean>(false)
+    const [isSendingCode, setIsSendingCode] = React.useState<boolean>(false)
+    const [countdown, setCountdown] = React.useState<number | undefined>(3)
+
+    const onSendCode = async () => {
+        setIsSendingCode(true)
+        try {
+            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 3000))
+            setOtpFormPopup(true)
+        } catch (error) {
+            console.error('Failed to send code:', error)
+        } finally {
+            setIsSendingCode(false)
+        }
+    }
+
     return (
-        <div className="w-full px-4">
+        <div className="min-h-full w-full px-4">
             <h1 className="text-2xl font-semibold mb-8 text-center">ลงทะเบียน</h1>
 
             <Form {...form}>
@@ -58,21 +75,32 @@ export function RegisterForm({ onSubmit }: Readonly<RegisterFormProps>) {
                     />
 
                     <div className="flex gap-2">
-                        <FormField
-                            control={form.control}
-                            name="phone"
-                            render={({ field }) => (
-                                <FormItem className="flex-1">
-                                    <FormControl>
-                                        <Input placeholder="เบอร์โทร" {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
+                        <div className="flex-1">
+                            <FormField
+                                control={form.control}
+                                name="phone"
+                                render={({ field }) => (
+                                    <FormItem className="flex-1">
+                                        <FormControl>
+                                            <Input placeholder="เบอร์โทร" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+                        </div>
+                        <Button
+                            variant="outline"
+                            onClick={onSendCode}
+                            isLoading={isSendingCode}
+                            type="button"
+                        >
+                            ขอรหัส
+                        </Button>
                     </div>
 
-                    <div className="flex gap-2">
+                    {/* <div className="flex gap-2">
                         <div className="flex-1">
                             <FormField
                                 control={form.control}
@@ -87,8 +115,7 @@ export function RegisterForm({ onSubmit }: Readonly<RegisterFormProps>) {
                                 )}
                             />
                         </div>
-                        <Button variant="outline">ขอรหัส</Button>
-                    </div>
+                    </div> */}
 
                     <FormField
                         control={form.control}

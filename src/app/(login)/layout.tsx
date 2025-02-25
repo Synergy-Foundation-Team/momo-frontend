@@ -8,9 +8,9 @@ type Props = {
 
 export default function LogInLayout({ children }: Readonly<Props>) {
     return (
-        <div className="flex flex-col min-h-screen">
+        <div className="flex flex-col h-screen">
             <Navbar />
-            <main className="flex-1 container mx-auto px-4 py-8 justify-center items-center h-full">{children}</main>
+            <main className="flex-1 container mx-auto px-4 py-8 justify-center items-center">{children}</main>
             <Footer />
         </div>
     )
