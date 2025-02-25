@@ -30,9 +30,32 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Project structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+src/
+├── app/                    # Next.js app directory with pages and layouts
+├── components/             # Reusable UI components
+│   ├── layouts/           # Layout components (navbar, footer, etc.)
+│   └── ui/               # UI components (buttons, forms, etc.)
+├── lib/                   # Utility functions and configurations
+│   ├── axiosInstance.ts  # Axios configuration with interceptors
+│   └── react-query.ts    # React Query client configuration
+├── services/              # API services and data fetching
+│   └── products/         # Product-related services
+│       ├── api.ts        # API functions
+│       ├── hooks.ts      # React Query hooks
+│       ├── types.ts      # TypeScript interfaces
+│       └── index.ts      # Barrel exports
+└── styles/               # Global styles and Tailwind CSS configuration
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This project uses a modular architecture with clear separation of concerns:
+
+- **components/**: Reusable UI components organized by type
+- **lib/**: Core configurations and utilities
+- **services/**: API integration layer with TypeScript types and React Query hooks
+- **styles/**: Global styling and theme configuration
+
+The project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ## Learn More
 

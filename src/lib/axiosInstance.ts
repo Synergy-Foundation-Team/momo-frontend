@@ -8,7 +8,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api"
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: BASE_URL,
-  timeout: 10000, // 10 seconds
+  timeout: 10000,
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
@@ -30,7 +30,6 @@ axiosInstance.interceptors.request.use(
   }
 )
 
-// Response interceptor
 axiosInstance.interceptors.response.use(
   response => {
     return response
@@ -38,25 +37,20 @@ axiosInstance.interceptors.response.use(
   async (error: AxiosError) => {
     const originalRequest = error.config
 
-    // Handle 401 Unauthorized error (token expired)
     if (error.response?.status === 401 && originalRequest) {
       try {
-        // Get refresh token
         const refreshToken = localStorage.getItem("refreshToken")
         if (refreshToken) {
-          // Call refresh token endpoint
           const response = await axios.post(`${BASE_URL}/auth/refresh`, {
             refreshToken,
           })
 
           if (response.data.accessToken) {
-            // Update tokens
             localStorage.setItem("accessToken", response.data.accessToken)
             if (response.data.refreshToken) {
               localStorage.setItem("refreshToken", response.data.refreshToken)
             }
 
-            // Retry original request with new token
             if (originalRequest.headers) {
               originalRequest.headers.Authorization = `Bearer ${response.data.accessToken}`
             }
@@ -64,21 +58,44 @@ axiosInstance.interceptors.response.use(
           }
         }
       } catch (refreshError) {
-        // Log the refresh token error
         console.error("Token refresh failed:", refreshError)
-        // Handle refresh token failure
         localStorage.removeItem("accessToken")
         localStorage.removeItem("refreshToken")
-        // Redirect to login page if in browser environment
         if (typeof window !== "undefined") {
           window.location.href = "/login"
         }
       }
     }
 
-    // Handle other errors
     return Promise.reject(error)
   }
 )
+
+export const fetcher = async <T>({
+  url,
+  method = "GET",
+  params = {},
+  data = {},
+  headers = {},
+}: {
+  url: string
+  method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH"
+  params?: object
+  data?: object
+  headers?: object
+}): Promise<T> => {
+  try {
+    const response = await axiosInstance({
+      url,
+      method,
+      params,
+      data,
+      headers,
+    })
+    return response.data as T
+  } catch (error) {
+    throw error
+  }
+}
 
 export default axiosInstance
