@@ -26,50 +26,62 @@ export function PointCard({
   phone,
 }: PointCardProps) {
   return (
-    <div
-      className="relative aspect-[1.8/1] w-full overflow-hidden rounded-2xl bg-[#6FDDDC] p-4"
-      style={{
-        background: "linear-gradient(180deg, #D8FEF2 0%, #02C0D2 100%)",
-      }}
-    >
-      {/* Background Pattern */}
-      <div className="absolute inset-0 bg-[url('/pattern.png')] opacity-10" />
+    <div className="flex items-center justify-center">
+      <div
+        className="relative aspect-[1.8/1] w-full max-w-[450px] overflow-hidden rounded-2xl bg-[#6FDDDC] p-4"
+        style={{
+          background: "linear-gradient(180deg, #D8FEF2 0%, #02C0D2 100%)",
+        }}
+      >
+        {/* Background Pattern */}
+        <div className="absolute inset-0 bg-[url('/pattern.png')] opacity-10" />
 
-      {/* Logo */}
-      <div className="absolute ml-[-16px]">
-        <Image
-          src="/images/transparent-logo.svg"
-          alt="MoMo Logo"
-          width={120}
-          height={60}
-          className="h-10 w-auto sm:h-12 md:h-12 lg:h-20"
-          priority
-        />
-      </div>
-
-      {/* Points Display */}
-
-      {/* right-6 text-right */}
-      <div className="absolute right-6 text-right sm:left-6 sm:top-1/2 sm:-translate-y-1/2 sm:transform sm:space-y-1 sm:text-left">
-        <div className="text-4xl font-bold text-[#1B4B66] md:text-5xl lg:text-5xl">
-          {points}
+        {/* Logo */}
+        <div className="absolute ml-[-16px]">
+          <Image
+            src="/images/transparent-logo.svg"
+            alt="MoMo Logo"
+            width={120}
+            height={60}
+            className="h-10 w-auto sm:h-12 md:h-12 lg:h-20"
+            priority
+          />
         </div>
-        <div className="text-lg font-medium text-[#1B4B66]">คะแนนสะสม</div>
-      </div>
 
-      {/* Member Info */}
-      <div className="absolute bottom-6 left-6 right-6">
-        <div className="flex flex-wrap items-start justify-between gap-2">
-          <div className="min-w-0 flex-1">
-            <div className="text-sm text-[#1B4B66] opacity-80">ชื่อสมาชิก</div>
-            <div className="truncate font-medium text-[#1B4B66]">
-              {memberName}
+        {/* Points Display */}
+
+        <div className="flex h-full flex-col justify-around">
+          {/* right-6 text-right */}
+          <div className="flex w-full justify-end">
+            <div className="flex flex-col">
+              <div className="text-4xl font-bold text-[#1B4B66] md:text-5xl lg:text-5xl">
+                {points}
+              </div>
+              <div className="text-lg font-medium text-[#1B4B66]">
+                คะแนนสะสม
+              </div>
             </div>
           </div>
-          <div className="text-right">
-            <div className="text-sm text-[#1B4B66] opacity-80">เบอร์โทร</div>
-            <div className="font-medium text-[#1B4B66]">
-              {formatPhoneNumber(phone)}
+
+          {/* Member Info */}
+          <div className="">
+            <div className="flex flex-wrap items-start justify-between gap-2">
+              <div className="min-w-0 flex-1">
+                <div className="text-sm text-[#1B4B66] opacity-80">
+                  ชื่อสมาชิก
+                </div>
+                <div className="truncate font-medium text-[#1B4B66]">
+                  {memberName}
+                </div>
+              </div>
+              <div className="text-right">
+                <div className="text-sm text-[#1B4B66] opacity-80">
+                  เบอร์โทร
+                </div>
+                <div className="font-medium text-[#1B4B66]">
+                  {formatPhoneNumber(phone)}
+                </div>
+              </div>
             </div>
           </div>
         </div>
