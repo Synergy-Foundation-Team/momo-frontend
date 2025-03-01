@@ -8,11 +8,9 @@ export default function ProfilePage() {
 
   return (
     <div className="flex min-h-screen">
-      {/* Sidebar */}
       <SidebarProfile setActiveComponent={setActiveComponent} />
 
-      {/* Content Area */}
-      <main className="flex-1 p-6 bg-gray-50">
+      <main className="flex-1 p-6">
         {activeComponent}
       </main>
     </div>
