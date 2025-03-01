@@ -4,6 +4,7 @@ import { persist } from 'zustand/middleware'
 interface ProfileState {
   firstName: string
   lastName: string
+  idCard: string
   phone: string
   email: string
   points: number
@@ -16,6 +17,7 @@ export const useProfileStore = create<ProfileState>()(
     (set) => ({
       firstName: '',
       lastName: '',
+      idCard: '',
       phone: '',
       email: '',
       points: 200,
