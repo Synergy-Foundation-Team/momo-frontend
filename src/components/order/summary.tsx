@@ -1,8 +1,8 @@
-'use client'
+"use client"
 
-import { Button } from '@/ui/button'
-import { useCartStore } from '@/store/cart'
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react"
+import { useCartStore } from "@/store/cart"
+import { Button } from "@/ui/button"
 
 export default function OrderSummary() {
   const [mounted, setMounted] = useState(false)
@@ -21,9 +21,10 @@ export default function OrderSummary() {
 
   return (
     <div className="lg:col-span-1">
-      <div className="rounded-lg border bg-card p-6">
-        <h2 className="text-lg font-semibold">สรุปคำสั่งซื้อ</h2>
-
+      <div className="rounded-lg bg-card">
+        <h2 className="mb-4 border-b pb-2 text-xl font-semibold text-[#1B4B66]">
+          สรุปคำสั่งซื้อ
+        </h2>
         <div className="mt-6 space-y-4">
           <div className="flex justify-between text-sm">
             <span className="text-muted-foreground">ราคารวม</span>
@@ -35,7 +36,7 @@ export default function OrderSummary() {
           </div>
           <div className="flex justify-between text-sm">
             <span className="text-muted-foreground">ค่าจัดส่ง</span>
-            <span>{shipping === 0 ? 'ฟรี' : `฿${shipping.toFixed(2)}`}</span>
+            <span>{shipping === 0 ? "ฟรี" : `฿${shipping.toFixed(2)}`}</span>
           </div>
           <div className="border-t pt-4">
             <div className="flex justify-between">

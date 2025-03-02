@@ -13,10 +13,13 @@ export default {
     container: {
       center: true,
       padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
     },
+    // screens: {
+    //   "mobile-sm": "320px",
+    //   "mobile-m": "375px",
+    //   "mobile-l": "425px",
+    //   "tablet": "768px",
+    // },
     extend: {
       colors: {
         border: "hsl(var(--border))",
