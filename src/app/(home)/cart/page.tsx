@@ -181,7 +181,7 @@ export default function ListOrder() {
                   >
                     {/* Product Info */}
                     <div className="flex min-w-0 flex-[2] items-center gap-4">
-                      <div className="overflow-hidden rounded-lg border border-gray-200 bg-gray-50 p-1 shadow-sm">
+                      <div className="flex-shrink-0 overflow-hidden rounded-lg border border-gray-200 bg-gray-50 p-1 shadow-sm">
                         {item.image ? (
                           <Image
                             src={item.image}
@@ -196,9 +196,8 @@ export default function ListOrder() {
                           </div>
                         )}
                       </div>
-
-                      <div className="min-w-0">
-                        <div className="truncate font-medium text-gray-800">
+                      <div className="w-full min-w-0">
+                        <div className="overflow-hidden truncate text-ellipsis whitespace-nowrap font-medium text-gray-800">
                           {item.name}
                         </div>
                         <div className="mt-1 text-xs text-emerald-600">
