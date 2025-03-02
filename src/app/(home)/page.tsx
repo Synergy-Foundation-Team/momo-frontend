@@ -5,8 +5,6 @@ import { Product } from '@/types/product'
 import { Paginator } from '@/components/ui/Paginator'
 import { useEffect, useState, useRef } from 'react'
 
-
-
 export default function HomePage() {
   const productSectionRef = useRef<HTMLDivElement>(null)
   const [loading, setLoading] = useState(true)
@@ -20,8 +18,7 @@ export default function HomePage() {
       setLoading(true)
       await new Promise((resolve) => setTimeout(resolve, 1000))
 
-      // Simulate pagination with sample data
-      const totalItems = 50 // Total number of products
+      const totalItems = 50
       const calculatedTotalPages = Math.ceil(totalItems / itemsPerPage)
       setTotalPages(calculatedTotalPages)
 
@@ -44,10 +41,15 @@ export default function HomePage() {
     }
   }
 
-  useEffect(() => {
-    fetchProducts(currentPage)
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page)
+    fetchProducts(page)
     productSectionRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [currentPage])
+  }
+
+  useEffect(() => {
+    fetchProducts(1)
+  }, [])
 
   return (
     <div>
@@ -64,7 +66,7 @@ export default function HomePage() {
           <Paginator
             currentPage={currentPage}
             totalPages={totalPages}
-            onPageChange={(page) => setCurrentPage(page)}
+            onPageChange={handlePageChange}
           />
         </div>
       </div>

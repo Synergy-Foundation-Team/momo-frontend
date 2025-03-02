@@ -65,7 +65,7 @@ const mockItems = [
 ]
 
 export const useCartStore = create<CartStore>()(
-  persist(
+  persist<CartStore>(
     (set, get) => ({
       items: [...mockItems],
       totalItems: 0,
