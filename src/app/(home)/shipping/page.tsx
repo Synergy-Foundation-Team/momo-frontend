@@ -114,7 +114,7 @@ export default function ShippingAddress() {
 
   return (
     <div className="mx-auto mb-[80px] mt-6 max-w-7xl px-4 sm:mb-4 sm:px-6">
-      <div className="mb-8 flex items-center justify-between rounded-lg bg-gradient-to-r from-[#1B4B66] to-[#2D6F99] p-4 text-white">
+      <div className="mb-8 flex items-center justify-between rounded-lg bg-gradient-to-r from-[--dark-cyan] to-[#44C5D2ff] p-4 text-white">
         <h1 className="text-2xl font-semibold">ที่อยู่จัดส่ง</h1>
         <motion.div whileHover="hover" whileTap="tap" variants={buttonVariants}>
           <Button
@@ -319,7 +319,7 @@ export default function ShippingAddress() {
               >
                 <Button
                   type="submit"
-                  className="mt-4 hidden h-12 w-full items-center justify-center bg-[#1B4B66] text-lg font-medium transition-all duration-300 hover:bg-[#2D6F99] md:flex"
+                  className="mt-4 hidden h-12 w-full items-center justify-center bg-[--indigo-dye] text-lg font-medium transition-all md:flex"
                   disabled={!isFormValid || isSubmitting}
                 >
                   {isSubmitting ? (

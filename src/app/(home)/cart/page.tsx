@@ -77,14 +77,12 @@ export default function ListOrder() {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-3xl font-bold text-[#1B4B66]">ตะกร้าสินค้า</h1>
-          <div className="mt-2 text-sm text-muted-foreground">
-            ไม่มีสินค้าในตะกร้า
-          </div>
+          <h1 className="text-3xl font-bold text-[--indigo-dye]">ตะกร้าสินค้า</h1>
+          <div className="mt-2 text-sm text-gray-600">ไม่มีสินค้าในตะกร้า</div>
         </motion.div>
 
         <motion.div
-          className="flex flex-col items-center justify-center rounded-xl border border-dashed border-gray-300 bg-card p-12 text-center"
+          className="flex flex-col items-center justify-center rounded-xl border border-dashed border-[#44C5D2ff] bg-[#E1F4F8ff] p-12 text-center"
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.5 }}
@@ -98,17 +96,17 @@ export default function ListOrder() {
               damping: 20,
               delay: 0.5,
             }}
-            className="mb-6 rounded-full bg-blue-50 p-6"
+            className="mb-6 rounded-full bg-[#8FE8E8ff]/40 p-6"
           >
-            <ShoppingBag className="h-12 w-12 text-[#1B4B66]" />
+            <ShoppingBag className="h-12 w-12 text-[--dark-cyan]" />
           </motion.div>
           <p className="mb-4 text-lg text-gray-700">ตะกร้าของคุณว่างเปล่า</p>
-          <p className="mb-8 text-muted-foreground">
+          <p className="mb-8 text-gray-600">
             เริ่มต้นช้อปปิ้งเพื่อเพิ่มสินค้าในตะกร้า
           </p>
           <Button
             size="lg"
-            className="bg-[#1B4B66] px-8 hover:bg-[#16405A]"
+            className="bg-[--dark-cyan] px-8 hover:bg-[#44C5D2ff]"
             asChild
           >
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
@@ -130,7 +128,7 @@ export default function ListOrder() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.4 }}
       >
-        <h1 className="text-4xl font-bold text-[#1B4B66]">ตะกร้าสินค้า</h1>
+        <h1 className="text-4xl font-bold text-[--indigo-dye]">ตะกร้าสินค้า</h1>
         <motion.div
           className="mt-2 flex items-center gap-2 text-sm text-gray-600"
           initial={{ opacity: 0 }}
@@ -151,11 +149,11 @@ export default function ListOrder() {
         >
           {/* Desktop Table */}
           <motion.div
-            className="hidden overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm sm:block"
+            className="hidden overflow-hidden rounded-xl border border-[#D2DCDEff] bg-white shadow-sm sm:block"
             variants={itemVariants}
           >
             {/* Table Header */}
-            <div className="flex w-full items-center justify-between bg-gradient-to-r from-[#1B4B66] to-[#2D6A8E] px-6 py-4 text-white">
+            <div className="flex w-full items-center justify-between bg-gradient-to-r from-[--dark-cyan] to-[#44C5D2ff] px-6 py-4 text-white">
               <div className="flex-[2] text-sm font-medium">ชื่อสินค้า</div>
               <div className="flex-1 text-center text-sm font-medium">ราคา</div>
               <div className="flex-1 text-center text-sm font-medium">
@@ -177,11 +175,11 @@ export default function ListOrder() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10, scale: 0.95 }}
                     transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                    className="flex w-full items-center justify-between border-b border-gray-100 px-6 py-4 hover:bg-gray-50"
+                    className="flex w-full items-center justify-between border-b border-[#E1F4F8ff] px-6 py-4 hover:bg-[#E1F4F8ff]/30"
                   >
                     {/* Product Info */}
                     <div className="flex min-w-0 flex-[2] items-center gap-4">
-                      <div className="flex-shrink-0 overflow-hidden rounded-lg border border-gray-200 bg-gray-50 p-1 shadow-sm">
+                      <div className="flex-shrink-0 overflow-hidden rounded-lg border border-[#D2DCDEff] bg-[#E1F4F8ff]/50 p-1 shadow-sm">
                         {item.image ? (
                           <Image
                             src={item.image}
@@ -191,7 +189,7 @@ export default function ListOrder() {
                             height={80}
                           />
                         ) : (
-                          <div className="flex h-16 w-16 items-center justify-center bg-gray-200 text-xs text-gray-500">
+                          <div className="flex h-16 w-16 items-center justify-center bg-[#E1F4F8ff] text-xs text-gray-500">
                             No image
                           </div>
                         )}
@@ -200,7 +198,7 @@ export default function ListOrder() {
                         <div className="overflow-hidden truncate text-ellipsis whitespace-nowrap font-medium text-gray-800">
                           {item.name}
                         </div>
-                        <div className="mt-1 text-xs text-emerald-600">
+                        <div className="mt-1 text-xs text-[--dark-cyan]">
                           เหลือ {item.quantity} ชิ้น
                         </div>
                       </div>
@@ -212,7 +210,7 @@ export default function ListOrder() {
 
                     <div className="flex flex-1 justify-center">
                       <motion.div
-                        className="inline-flex items-center rounded-lg border border-gray-200 bg-white px-1 py-1 shadow-sm"
+                        className="inline-flex items-center rounded-lg border border-[#D2DCDEff] bg-white px-1 py-1 shadow-sm"
                         whileHover={{ scale: 1.05 }}
                         transition={{
                           type: "spring",
@@ -228,7 +226,7 @@ export default function ListOrder() {
                               ? updateQuantity(item.id, item.quantity - 1)
                               : removeItem(item.id)
                           }
-                          className="h-8 w-8 text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                          className="h-8 w-8 text-gray-600 hover:bg-[#E1F4F8ff] hover:text-[--dark-cyan]"
                         >
                           <Minus className="h-3 w-3" />
                         </Button>
@@ -249,14 +247,14 @@ export default function ListOrder() {
                           onClick={() =>
                             updateQuantity(item.id, item.quantity + 1)
                           }
-                          className="h-8 w-8 text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                          className="h-8 w-8 text-gray-600 hover:bg-[#E1F4F8ff] hover:text-[--dark-cyan]"
                         >
                           <Plus className="h-3 w-3" />
                         </Button>
                       </motion.div>
                     </div>
 
-                    <div className="flex-1 text-center font-medium text-[#1B4B66]">
+                    <div className="flex-1 text-center font-medium text-[--dark-cyan]">
                       ฿{item.quantity * item.price}
                     </div>
                   </motion.div>
@@ -281,10 +279,10 @@ export default function ListOrder() {
                   initial="hidden"
                   animate="visible"
                   exit="exit"
-                  className="overflow-hidden rounded-xl border border-gray-200 bg-white p-4 shadow-sm"
+                  className="overflow-hidden rounded-xl border border-[#D2DCDEff] bg-white p-4 shadow-sm"
                 >
                   <div className="flex gap-4">
-                    <div className="overflow-hidden rounded-lg border border-gray-200 bg-gray-50 p-1 shadow-sm">
+                    <div className="overflow-hidden rounded-lg border border-[#D2DCDEff] bg-[#E1F4F8ff]/50 p-1 shadow-sm">
                       {item.image ? (
                         <Image
                           src={item.image}
@@ -294,7 +292,7 @@ export default function ListOrder() {
                           height={60}
                         />
                       ) : (
-                        <div className="flex h-16 w-16 items-center justify-center bg-gray-200 text-xs text-gray-500">
+                        <div className="flex h-16 w-16 items-center justify-center bg-[#E1F4F8ff] text-xs text-gray-500">
                           No image
                         </div>
                       )}
@@ -303,25 +301,25 @@ export default function ListOrder() {
                       <div className="text-sm font-medium text-gray-800">
                         {item.name}
                       </div>
-                      <div className="mt-1 text-xs text-emerald-600">
+                      <div className="mt-1 text-xs text-[--dark-cyan]">
                         เหลือ {item.quantity} ชิ้น
                       </div>
-                      <div className="mt-2 text-sm font-medium text-[#1B4B66]">
+                      <div className="mt-2 text-sm font-medium text-[--dark-cyan]">
                         ฿{item.price}
                       </div>
                     </div>
                   </div>
 
-                  <div className="mt-4 flex items-center justify-between border-t border-gray-100 pt-4">
+                  <div className="mt-4 flex items-center justify-between border-t border-[#D2DCDEff] pt-4">
                     <div className="text-sm text-gray-700">
                       รวม:{" "}
-                      <span className="font-bold text-[#1B4B66]">
+                      <span className="font-bold text-[--dark-cyan]">
                         ฿{item.quantity * item.price}
                       </span>
                     </div>
                     <div className="flex items-center justify-center gap-2">
                       <motion.div
-                        className="inline-flex items-center rounded-lg border border-gray-200 bg-white px-1 shadow-sm"
+                        className="inline-flex items-center rounded-lg border border-[#D2DCDEff] bg-white px-1 shadow-sm"
                         whileHover={{ scale: 1.05 }}
                         transition={{
                           type: "spring",
@@ -337,7 +335,7 @@ export default function ListOrder() {
                               ? updateQuantity(item.id, item.quantity - 1)
                               : removeItem(item.id)
                           }
-                          className="h-8 w-8 text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                          className="h-8 w-8 text-gray-600 hover:bg-[#E1F4F8ff] hover:text-[--dark-cyan]"
                         >
                           <Minus className="h-3 w-3" />
                         </Button>
@@ -358,7 +356,7 @@ export default function ListOrder() {
                           onClick={() =>
                             updateQuantity(item.id, item.quantity + 1)
                           }
-                          className="h-8 w-8 text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                          className="h-8 w-8 text-gray-600 hover:bg-[#E1F4F8ff] hover:text-[--dark-cyan]"
                         >
                           <Plus className="h-3 w-3" />
                         </Button>
@@ -392,7 +390,7 @@ export default function ListOrder() {
           transition={{ delay: 0.4, duration: 0.5 }}
         >
           <motion.div
-            className="sticky top-[5rem] rounded-xl border border-gray-200 bg-white p-6 shadow-sm"
+            className="sticky transition-all top-[5rem] rounded-xl border border-[#D2DCDEff] bg-white p-6 shadow-sm"
             whileHover={{ boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }}
             transition={{ duration: 0.3 }}
           >
@@ -406,7 +404,7 @@ export default function ListOrder() {
               <div className="mt-6 hidden grid-cols-2 gap-3 md:grid">
                 <Link href="/shipping" className="col-span-2">
                   <Button
-                    className="w-full bg-[#1B4B66] hover:bg-[#16405A]"
+                    className="w-full bg-[--indigo-dye]"
                     size="lg"
                     asChild
                   >
@@ -422,7 +420,7 @@ export default function ListOrder() {
                 </Link>
                 <Link href="/" className="col-span-2">
                   <Button
-                    className="w-full border-[#1B4B66] text-[#1B4B66] hover:bg-[#1B4B66] hover:text-white"
+                    className="w-full border-[--dark-cyan] text-[--dark-cyan] hover:bg-[#E1F4F8ff]"
                     size="lg"
                     variant="outline"
                     asChild
@@ -447,14 +445,14 @@ export default function ListOrder() {
           animate={{ y: 0 }}
           transition={{ type: "spring", stiffness: 100, delay: 0.5 }}
         >
-          <Button className="mb-2 flex h-14 w-full items-center justify-center bg-[#1B4B66] text-lg font-medium hover:bg-[#2D6F99]">
+          <Button className="mb-2 flex h-14 w-full items-center justify-center bg-[--indigo-dye] text-lg font-medium hover:bg-[#44C5D2ff]">
             <Link className="flex items-center" href={"/shipping"}>
               ยืนยันการสั่งซื้อ <ChevronRight className="ml-2 h-5 w-5" />
             </Link>
           </Button>
           <Button
             variant={"outline"}
-            className="flex h-14 w-full items-center justify-center bg-white text-lg font-medium"
+            className="flex h-14 w-full items-center justify-center border-[--dark-cyan] bg-white text-lg font-medium text-[--dark-cyan] hover:bg-[#E1F4F8ff]"
           >
             <Link className="flex items-center" href={"/"}>
               ช็อปปิ้งต่อ <ShoppingBag className="ml-2 h-5 w-5" />
