@@ -54,7 +54,7 @@ export default function OrderSuccess() {
         itemType="https://schema.org/OrderConfirmationPage"
       >
         {/* Header Bar with Improved Gradient */}
-        <header className="mb-8 w-full max-w-xl rounded-lg bg-gradient-to-r from-[#1B4B66] via-[#246080] to-[#2D6F99] p-5 text-white shadow-lg">
+        <header className="mb-8 w-full max-w-xl rounded-lg bg-gradient-to-r from-[--dark-cyan] to-[#44C5D2ff] p-5 text-white shadow-lg">
           <h1 className="text-center text-2xl font-semibold" itemProp="name">
             การสั่งซื้อสำเร็จแล้ว
           </h1>
@@ -235,7 +235,7 @@ export default function OrderSuccess() {
 
         {/* Coupon Section - Adding value */}
         <section className="mt-12 w-full max-w-xl">
-          <div className="rounded-lg bg-gradient-to-r from-[#1B4B66] to-[#2D6F99] p-5 text-white">
+          <div className="rounded-lg bg-gradient-to-r from-[--dark-cyan] to-[#44C5D2ff] p-5 text-white">
             <div className="flex flex-col items-center text-center">
               <h3 className="mb-2 text-lg font-semibold">
                 ขอบคุณสำหรับการสั่งซื้อ!

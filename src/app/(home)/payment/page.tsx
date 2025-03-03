@@ -51,7 +51,7 @@ export default function PaymentPage() {
       </Head>
 
       <main className="container mx-auto mb-20 px-4 py-8 sm:mb-0">
-        <header className="mb-8 flex items-center justify-between rounded-lg bg-gradient-to-r from-[#1B4B66] to-[#2D6F99] p-4 text-white">
+        <header className="mb-8 flex items-center justify-between rounded-lg bg-gradient-to-r from-[--dark-cyan] to-[#44C5D2ff] p-4 text-white">
           <h1 className="text-2xl font-semibold">ชำระเงิน</h1>
           <Link href="/shipping">
             <Button
@@ -84,7 +84,7 @@ export default function PaymentPage() {
                   กรุณาสแกนรหัส QR โดยใช้แอป Mobile Banking
                 </h2>
                 <p className="text-gray-600">
-                  ที่รองรับการดำเนินการชำระเงินผ่าน PromptPay 
+                  ที่รองรับการดำเนินการชำระเงินผ่าน PromptPay
                 </p>
               </figcaption>
             </div>
@@ -111,20 +111,6 @@ export default function PaymentPage() {
               )}
             </div>
 
-            <Button
-              onClick={handlePaymentConfirmation}
-              className="h-14 w-full bg-[#1B4B66] text-lg font-medium text-white hover:bg-[#2D6F99]"
-              disabled={isPaymentConfirming}
-            >
-              {isPaymentConfirming ? (
-                "กำลังยืนยันการชำระเงิน..."
-              ) : (
-                <>
-                  <Check className="mr-2 h-5 w-5" /> ยืนยันการชำระเงิน
-                </>
-              )}
-            </Button>
-
             <section className="mt-4 rounded-lg bg-blue-50 p-4 text-sm text-[#1B4B66]">
               <h3 className="mb-1 font-medium">คำแนะนำการชำระเงิน:</h3>
               <ul className="list-disc pl-5">
@@ -137,8 +123,23 @@ export default function PaymentPage() {
           </article>
 
           <aside className="space-y-4">
-            <OrderDetail />
             <OrderSummary />
+            <Button
+              onClick={handlePaymentConfirmation}
+              className="h-14 w-full bg-[#1B4B66] text-lg font-medium text-white hover:bg-[#2D6F99] hidden md:flex"
+              disabled={isPaymentConfirming}
+            >
+              {isPaymentConfirming ? (
+                "กำลังยืนยันการชำระเงิน..."
+              ) : (
+                <>
+                  <Check className="mr-2 h-5 w-5" /> ยืนยันชำระเงิน
+                </>
+              )}
+            </Button>
+            <div className="max-h-[400px] overflow-y-auto rounded-lg border border-gray-200">
+              <OrderDetail />
+            </div>
           </aside>
         </section>
       </main>
