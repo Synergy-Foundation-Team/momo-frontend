@@ -16,9 +16,7 @@ type PackOption = {
   originalPrice: number
   discountPercentage: number
 }
-interface ProductPageProps {
-  params: { productId: string }
-}
+
 const packOptions: PackOption[] = [
   {
     id: "1-pack",
@@ -110,11 +108,10 @@ export default function ProductPage({
               {packOptions.map(option => (
                 <Label
                   key={option.id}
-                  className={`flex cursor-pointer items-center justify-between rounded-lg border p-4 ${
-                    selectedPack === option.id
-                      ? "border-primary bg-primary/5"
-                      : "hover:bg-muted/50"
-                  }`}
+                  className={`flex cursor-pointer items-center justify-between rounded-lg border p-4 ${selectedPack === option.id
+                    ? "border-primary bg-primary/5"
+                    : "hover:bg-muted/50"
+                    }`}
                 >
                   <div className="flex items-center gap-2">
                     <RadioGroupItem value={option.id} id={option.id} />
