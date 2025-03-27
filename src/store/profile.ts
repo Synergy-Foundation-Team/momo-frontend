@@ -1,5 +1,5 @@
-import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { create } from "zustand"
+import { persist } from "zustand/middleware"
 
 interface ProfileState {
   firstName: string
@@ -14,18 +14,18 @@ interface ProfileState {
 
 export const useProfileStore = create<ProfileState>()(
   persist(
-    (set) => ({
-      firstName: '',
-      lastName: '',
-      idCard: '',
-      phone: '',
-      email: '',
+    set => ({
+      firstName: "",
+      lastName: "",
+      idCard: "",
+      phone: "",
+      email: "",
       points: 200,
-      expiryDate: '10/25',
-      setProfile: (profile) => set((state) => ({ ...state, ...profile })),
+      expiryDate: "10/25",
+      setProfile: profile => set(state => ({ ...state, ...profile })),
     }),
     {
-      name: 'profile-storage',
+      name: "profile-storage",
     }
   )
 )

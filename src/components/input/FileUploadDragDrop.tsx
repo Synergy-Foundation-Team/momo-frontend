@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react"
 
 type Props = {}
 
-export default function FileUploadDragDrop({ }: Props) {
-    return (
-        <div>FileUploadDragDrop</div>
-    )
+export default function FileUploadDragDrop({}: Props) {
+  return <div>FileUploadDragDrop</div>
 }

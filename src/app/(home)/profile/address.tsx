@@ -39,7 +39,17 @@ export default function Addresses() {
   useEffect(() => {
     setMounted(true)
     initAddress()
-  }, [addressLine1, addressLine2, subdistrict, district, province, postalCode, country, addressType, landmark])
+  }, [
+    addressLine1,
+    addressLine2,
+    subdistrict,
+    district,
+    province,
+    postalCode,
+    country,
+    addressType,
+    landmark,
+  ])
 
   const initAddress = () => {
     setTempAddress({
@@ -73,9 +83,11 @@ export default function Addresses() {
     setIsEditing(false)
   }
 
-  const handleChange = (key: keyof typeof tempAddress) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setTempAddress({ ...tempAddress, [key]: e.target.value })
-  }
+  const handleChange =
+    (key: keyof typeof tempAddress) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      setTempAddress({ ...tempAddress, [key]: e.target.value })
+    }
 
   const requiredLabel = (label: string) => (
     <div className="flex gap-1">
@@ -84,9 +96,16 @@ export default function Addresses() {
     </div>
   )
 
-  const renderInput = (id: string, label: string, isRequired = false, placeholder: string = "") => (
+  const renderInput = (
+    id: string,
+    label: string,
+    isRequired = false,
+    placeholder: string = ""
+  ) => (
     <div className="space-y-2">
-      <Label htmlFor={id}>{isRequired ? requiredLabel(label) : <div>{label}</div>}</Label>
+      <Label htmlFor={id}>
+        {isRequired ? requiredLabel(label) : <div>{label}</div>}
+      </Label>
       <Input
         id={id}
         value={tempAddress[id as keyof typeof tempAddress]}
@@ -99,7 +118,12 @@ export default function Addresses() {
     </div>
   )
 
-  const renderTextarea = (id: string, label: string, isRequired = false, placeholder: string = "") => (
+  const renderTextarea = (
+    id: string,
+    label: string,
+    isRequired = false,
+    placeholder: string = ""
+  ) => (
     <div className="space-y-2">
       <Label htmlFor={id}>{isRequired ? requiredLabel(label) : label}</Label>
       <Textarea
@@ -134,19 +158,38 @@ export default function Addresses() {
           {renderInput("addressType", "ประเภทที่อยู่อาศัย")}
         </div>
         <div className="grid grid-cols-1 gap-6">
-          {renderTextarea("landmark", "หมายเหตุ", false, "กรณีต้องการ ระบุหมายเหตุเพิ่มเติม")}
+          {renderTextarea(
+            "landmark",
+            "หมายเหตุ",
+            false,
+            "กรณีต้องการ ระบุหมายเหตุเพิ่มเติม"
+          )}
         </div>
         <div className="flex justify-end space-x-4">
           {!isEditing ? (
-            <Button type="button" variant="outline" size="lg" onClick={handleEdit}>
+            <Button
+              type="button"
+              variant="outline"
+              size="lg"
+              onClick={handleEdit}
+            >
               แก้ไขข้อมูล
             </Button>
           ) : (
             <>
-              <Button type="button" variant="outline" size="lg" onClick={handleCancel}>
+              <Button
+                type="button"
+                variant="outline"
+                size="lg"
+                onClick={handleCancel}
+              >
                 ยกเลิก
               </Button>
-              <Button type="submit" className="bg-[#1B4B66] hover:bg-[#1B4B66]/90" size="lg">
+              <Button
+                type="submit"
+                className="bg-[#1B4B66] hover:bg-[#1B4B66]/90"
+                size="lg"
+              >
                 บันทึก
               </Button>
             </>

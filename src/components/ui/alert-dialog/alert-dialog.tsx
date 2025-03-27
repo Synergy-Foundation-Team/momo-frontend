@@ -1,20 +1,28 @@
 "use client"
 
+import { useAlertDialog } from "@/store/alert-dialog"
 import {
-  AlertDialog as AlertDialogRoot,
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
+  AlertDialog as AlertDialogRoot,
   AlertDialogTitle,
 } from "@/ui/alert-dialog"
-import { useAlertDialog } from "@/store/alert-dialog"
 
 export function AlertDialog() {
-  const { isOpen, title, description, cancelText, confirmText, onConfirm, onCancel, close } =
-    useAlertDialog()
+  const {
+    isOpen,
+    title,
+    description,
+    cancelText,
+    confirmText,
+    onConfirm,
+    onCancel,
+    close,
+  } = useAlertDialog()
 
   const handleConfirm = () => {
     if (onConfirm) {

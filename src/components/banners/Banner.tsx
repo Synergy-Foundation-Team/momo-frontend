@@ -1,10 +1,10 @@
-'use client'
+"use client"
 
-import useEmblaCarousel from 'embla-carousel-react'
-import Autoplay from 'embla-carousel-autoplay'
-import { useCallback } from 'react'
-import { Button } from '@/ui/button'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { useCallback } from "react"
+import { Button } from "@/ui/button"
+import Autoplay from "embla-carousel-autoplay"
+import useEmblaCarousel from "embla-carousel-react"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 
 type Banner = {
   id: string
@@ -35,18 +35,26 @@ export function Banner({ banners }: BannerProps) {
     <div className="relative overflow-hidden">
       <div ref={emblaRef} className="overflow-hidden">
         <div className="flex">
-          {banners.map((banner) => (
-            <div
-              key={banner.id}
-              className="relative flex-[0_0_100%] min-w-0"
-            >
+          {banners.map(banner => (
+            <div key={banner.id} className="relative min-w-0 flex-[0_0_100%]">
               <div className="relative aspect-[21/9] w-full overflow-hidden">
                 <div
                   className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                  style={banner.image ? { backgroundImage: `url(${banner.image})` } : { backgroundColor: '#ccc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                  style={
+                    banner.image
+                      ? { backgroundImage: `url(${banner.image})` }
+                      : {
+                          backgroundColor: "#ccc",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }
+                  }
                 >
                   {!banner.image && (
-                    <span className="text-4xl text-gray-500">Image Placeholder</span>
+                    <span className="text-4xl text-gray-500">
+                      Image Placeholder
+                    </span>
                   )}
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent" />

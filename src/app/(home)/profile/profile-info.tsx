@@ -177,7 +177,7 @@ export default function ProfileInfo() {
                 disabled={!isEditing}
               />
             </div>
-            <div className="flex items-center space-x-2  mt-[28px]">
+            <div className="mt-[28px] flex items-center space-x-2">
               <Input
                 id="userStatus"
                 type="checkbox"

@@ -94,7 +94,7 @@ export default function OrderDetail({
           Order#{order.orderNumber}
         </h2>
         <div>
-          <div className="rounded bg-[#1B4B66] px-4 py-2 w-fit mt-3 sm:mt-0 text-white">
+          <div className="mt-3 w-fit rounded bg-[#1B4B66] px-4 py-2 text-white sm:mt-0">
             จัดส่งสำเร็จแล้ว
           </div>
         </div>

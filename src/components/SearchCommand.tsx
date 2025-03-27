@@ -37,6 +37,5 @@ export function SearchCommand({
         </CommandGroup>
       </CommandList>
     </CommandDialog>
-
   )
 }

@@ -126,7 +126,7 @@ export default function PaymentPage() {
             <OrderSummary />
             <Button
               onClick={handlePaymentConfirmation}
-              className="h-14 w-full bg-[#1B4B66] text-lg font-medium text-white hover:bg-[#2D6F99] hidden md:flex"
+              className="hidden h-14 w-full bg-[#1B4B66] text-lg font-medium text-white hover:bg-[#2D6F99] md:flex"
               disabled={isPaymentConfirming}
             >
               {isPaymentConfirming ? (

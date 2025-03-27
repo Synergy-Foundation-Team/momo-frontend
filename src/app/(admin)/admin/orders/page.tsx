@@ -173,7 +173,10 @@ const columns: ColumnDef<Orders>[] = [
       const orderId = row.original.id
 
       return (
-        <Link href={`/admin/orders/${orderId}`} className="lowercase text-blue-500">
+        <Link
+          href={`/admin/orders/${orderId}`}
+          className="lowercase text-blue-500"
+        >
           {row.getValue("ordersName")}
         </Link>
       )
@@ -268,7 +271,10 @@ const columns: ColumnDef<Orders>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>จัดการออเดอร์</DropdownMenuLabel>
             <DropdownMenuItem>
-              <Link href={`/admin/orders/${order.id}`} className="text-blue-500">
+              <Link
+                href={`/admin/orders/${order.id}`}
+                className="text-blue-500"
+              >
                 ดูรายละเอียด
               </Link>
             </DropdownMenuItem>

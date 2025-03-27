@@ -155,7 +155,6 @@ export default function OrderDetailPage() {
       {/* Order Items */}
       <OrderItemsList items={order.items} />
 
-
       {/* Action Buttons */}
       <div className="flex flex-col gap-4 sm:flex-row sm:justify-between">
         <div className="flex flex-1 gap-4">

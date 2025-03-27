@@ -1,12 +1,13 @@
 "use client"
 
 import * as React from "react"
+import { Dialog, DialogContent, DialogTitle } from "@/ui/dialog"
 import { DialogProps } from "@radix-ui/react-dialog"
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden"
 import { Command as CommandPrimitive } from "cmdk"
 import { Search } from "lucide-react"
-import { VisuallyHidden } from "@radix-ui/react-visually-hidden"
+
 import { cn } from "@/lib/utils"
-import { Dialog, DialogContent, DialogTitle } from "@/ui/dialog"
 
 const Command = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive>,
@@ -15,7 +16,7 @@ const Command = React.forwardRef<
   <CommandPrimitive
     ref={ref}
     className={cn(
-      "flex h-full w-full flex-col overflow-hidden rounded-md bg-white text-slate-950 px-5 md:px-0",
+      "flex h-full w-full flex-col overflow-hidden rounded-md bg-white px-5 text-slate-950 md:px-0",
       className
     )}
     {...props}
@@ -25,8 +26,8 @@ Command.displayName = CommandPrimitive.displayName
 
 const CommandDialog = ({ children, ...props }: DialogProps) => {
   return (
-    <Dialog {...props} >
-      <DialogContent className="overflow-hidden p-0 shadow-lg border-none">
+    <Dialog {...props}>
+      <DialogContent className="overflow-hidden border-none p-0 shadow-lg">
         <VisuallyHidden>
           <DialogTitle>Command Menu</DialogTitle>
         </VisuallyHidden>

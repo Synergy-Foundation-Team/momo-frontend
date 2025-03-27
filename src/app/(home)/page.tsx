@@ -1,9 +1,10 @@
-'use client'
+"use client"
 
-import { ProductGrid } from '@/components/products/ProductGrid'
-import { Product } from '@/types/product'
-import { Paginator } from '@/components/ui/Paginator'
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useRef, useState } from "react"
+
+import { Product } from "@/types/product"
+import { Paginator } from "@/components/ui/Paginator"
+import { ProductGrid } from "@/components/products/ProductGrid"
 
 export default function HomePage() {
   const productSectionRef = useRef<HTMLDivElement>(null)
@@ -16,26 +17,29 @@ export default function HomePage() {
   const fetchProducts = async (page: number) => {
     try {
       setLoading(true)
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      await new Promise(resolve => setTimeout(resolve, 1000))
 
       const totalItems = 50
       const calculatedTotalPages = Math.ceil(totalItems / itemsPerPage)
       setTotalPages(calculatedTotalPages)
 
       const startIndex = (page - 1) * itemsPerPage
-      const sampleProducts: Product[] = Array.from({ length: itemsPerPage }, (_, i) => ({
-        id: `product-${startIndex + i + 1}`,
-        name: `สินค้าตัวอย่าง ${startIndex + i + 1}`,
-        price: 499.99,
-        originalPrice: 999.99,
-        discountPercentage: 50,
-        image: `https://placehold.co/400x400?text=Product+${startIndex + i + 1}`,
-        category: 'sample',
-      }))
+      const sampleProducts: Product[] = Array.from(
+        { length: itemsPerPage },
+        (_, i) => ({
+          id: `product-${startIndex + i + 1}`,
+          name: `สินค้าตัวอย่าง ${startIndex + i + 1}`,
+          price: 499.99,
+          originalPrice: 999.99,
+          discountPercentage: 50,
+          image: `https://placehold.co/400x400?text=Product+${startIndex + i + 1}`,
+          category: "sample",
+        })
+      )
 
       setProducts(sampleProducts)
     } catch (error) {
-      console.error('Error fetching products:', error)
+      console.error("Error fetching products:", error)
     } finally {
       setLoading(false)
     }
@@ -44,7 +48,7 @@ export default function HomePage() {
   const handlePageChange = (page: number) => {
     setCurrentPage(page)
     fetchProducts(page)
-    productSectionRef.current?.scrollIntoView({ behavior: 'smooth' })
+    productSectionRef.current?.scrollIntoView({ behavior: "smooth" })
   }
 
   useEffect(() => {
@@ -53,15 +57,15 @@ export default function HomePage() {
 
   return (
     <div>
-      <div ref={productSectionRef} className="mx-auto md:container py-8">
-        <div className="flex items-center justify-between mb-8">
+      <div ref={productSectionRef} className="mx-auto py-8 md:container">
+        <div className="mb-8 flex items-center justify-between">
           <h1 className="text-2xl font-semibold">สินค้าแนะนำ</h1>
           <div className="text-sm text-muted-foreground">
             แสดง {products.length} รายการ
           </div>
         </div>
 
-        <div className='flex flex-col gap-8'>
+        <div className="flex flex-col gap-8">
           <ProductGrid products={products} loading={loading} />
           <Paginator
             currentPage={currentPage}

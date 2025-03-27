@@ -1,9 +1,9 @@
-'use client'
+"use client"
 
-import { ChevronLeft, ChevronRight } from 'lucide-react'
-import Image from 'next/image'
-import { useState } from 'react'
-import { Button } from '@/ui/button'
+import { useState } from "react"
+import Image from "next/image"
+import { Button } from "@/ui/button"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 
 type ProductGalleryProps = {
   images: string[]
@@ -13,11 +13,11 @@ export function ProductGallery({ images }: ProductGalleryProps) {
   const [currentImage, setCurrentImage] = useState(0)
   images = []
   const nextImage = () => {
-    setCurrentImage((prev) => (prev + 1) % images.length)
+    setCurrentImage(prev => (prev + 1) % images.length)
   }
 
   const previousImage = () => {
-    setCurrentImage((prev) => (prev - 1 + images.length) % images.length)
+    setCurrentImage(prev => (prev - 1 + images.length) % images.length)
   }
 
   return (
@@ -28,14 +28,14 @@ export function ProductGallery({ images }: ProductGalleryProps) {
           alt="Product image"
           fill
           className="object-cover"
-          onError={(e) => {
-            e.currentTarget.onerror = null;
-            e.currentTarget.src = '/images/placeholder.jpg';
+          onError={e => {
+            e.currentTarget.onerror = null
+            e.currentTarget.src = "/images/placeholder.jpg"
           }}
         />
       ) : (
-        <div className="flex items-center justify-center w-full h-full bg-gray-200">
-          <span className="text-gray-400 text-lg">No image available</span>
+        <div className="flex h-full w-full items-center justify-center bg-gray-200">
+          <span className="text-lg text-gray-400">No image available</span>
         </div>
       )}
       {images.length > 1 && (
@@ -64,8 +64,9 @@ export function ProductGallery({ images }: ProductGalleryProps) {
         {images.map((_, index) => (
           <button
             key={index}
-            className={`h-2 w-2 rounded-full transition-all ${index === currentImage ? 'bg-primary w-4' : 'bg-primary/50'
-              }`}
+            className={`h-2 w-2 rounded-full transition-all ${
+              index === currentImage ? "w-4 bg-primary" : "bg-primary/50"
+            }`}
             onClick={() => setCurrentImage(index)}
           />
         ))}

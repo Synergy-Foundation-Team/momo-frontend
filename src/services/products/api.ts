@@ -1,9 +1,10 @@
 import { fetcher } from "@/lib/axiosInstance"
+
 import { Product } from "./types"
 
 export const getProducts = () => {
-  return fetcher<Product[]>({ 
-    url: "/products"
+  return fetcher<Product[]>({
+    url: "/products",
   })
 }
 

@@ -77,7 +77,9 @@ export default function ListOrder() {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-3xl font-bold text-[--indigo-dye]">ตะกร้าสินค้า</h1>
+          <h1 className="text-3xl font-bold text-[--indigo-dye]">
+            ตะกร้าสินค้า
+          </h1>
           <div className="mt-2 text-sm text-gray-600">ไม่มีสินค้าในตะกร้า</div>
         </motion.div>
 
@@ -390,7 +392,7 @@ export default function ListOrder() {
           transition={{ delay: 0.4, duration: 0.5 }}
         >
           <motion.div
-            className="sticky transition-all top-[5rem] rounded-xl border border-[#D2DCDEff] bg-white p-6 shadow-sm"
+            className="sticky top-[5rem] rounded-xl border border-[#D2DCDEff] bg-white p-6 shadow-sm transition-all"
             whileHover={{ boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }}
             transition={{ duration: 0.3 }}
           >

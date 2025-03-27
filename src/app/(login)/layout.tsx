@@ -1,17 +1,18 @@
-import Footer from '@/components/layouts/Footer'
-import Navbar from '@/components/layouts/Navbar'
-import React from 'react'
+import React from "react"
+
+import Footer from "@/components/layouts/Footer"
+import Navbar from "@/components/layouts/Navbar"
 
 type Props = {
-    children: React.ReactNode
+  children: React.ReactNode
 }
 
 export default function LogInLayout({ children }: Props) {
-    return (
-        <div className="min-h-screen flex flex-col">
-            <Navbar />
-            <main className="flex-1 container mx-auto px-4 py-8">{children}</main>
-            <Footer />
-        </div>
-    )
+  return (
+    <div className="flex min-h-screen flex-col">
+      <Navbar />
+      <main className="container mx-auto flex-1 px-4 py-8">{children}</main>
+      <Footer />
+    </div>
+  )
 }

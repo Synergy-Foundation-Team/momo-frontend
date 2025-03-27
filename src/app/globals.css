@@ -5,14 +5,14 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  
+
   /* Momo color palette */
-  --indigo-dye: #1B4B66;
+  --indigo-dye: #1b4b66;
   --robin-egg-blue: #44c5d2ff;
   --dark-cyan: #298993ff;
-  --light-sea-green: #00BBB3ff;
-  --light-sea-green-2: #03BCB4ff;
-  --battleship-gray: #9C9C99ff;
+  --light-sea-green: #00bbb3ff;
+  --light-sea-green-2: #03bcb4ff;
+  --battleship-gray: #9c9c99ff;
 }
 
 @media (prefers-color-scheme: dark) {

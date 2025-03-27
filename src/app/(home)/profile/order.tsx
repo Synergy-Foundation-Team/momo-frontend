@@ -1,7 +1,8 @@
 import { useState } from "react"
+
+import OrderDetail from "./order-detail"
 import { Pagination } from "./paginate"
 import Table from "./table"
-import OrderDetail from "./order-detail"
 
 export type Orders = {
   id: string

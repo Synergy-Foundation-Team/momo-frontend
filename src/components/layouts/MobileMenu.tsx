@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { Button } from "@/ui/button"
 import {
   Sheet,
@@ -8,8 +9,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/ui/sheet"
-import { Menu, Heart, User, ShoppingBag } from "lucide-react"
-import Link from "next/link"
+import { Heart, Menu, ShoppingBag, User } from "lucide-react"
 
 interface MobileMenuProps {
   totalItems: number
@@ -23,28 +23,32 @@ export function MobileMenu({ totalItems }: MobileMenuProps) {
           <Menu className="h-5 w-5" />
         </Button>
       </SheetTrigger>
-      <SheetContent side="right" className="w-[300px] sm:w-[400px] flex flex-col" title="Navigation Menu">
+      <SheetContent
+        side="right"
+        className="flex w-[300px] flex-col sm:w-[400px]"
+        title="Navigation Menu"
+      >
         <SheetHeader>
           <SheetTitle>เมนู</SheetTitle>
         </SheetHeader>
-        <div className="flex flex-col gap-4 mt-4 flex-1">
+        <div className="mt-4 flex flex-1 flex-col gap-4">
           {/* Menu Links */}
           <div className="flex flex-col gap-2">
             <Link
               href="/medicine"
-              className="px-4 py-2 hover:bg-muted rounded-md transition-colors"
+              className="rounded-md px-4 py-2 transition-colors hover:bg-muted"
             >
               ยา
             </Link>
             <Link
               href="/superstore"
-              className="px-4 py-2 hover:bg-muted rounded-md transition-colors"
+              className="rounded-md px-4 py-2 transition-colors hover:bg-muted"
             >
               ซุปเปอร์สโตร์
             </Link>
             <Link
               href="/points"
-              className="px-4 py-2 hover:bg-muted rounded-md transition-colors"
+              className="rounded-md px-4 py-2 transition-colors hover:bg-muted"
             >
               แต้มสะสม
             </Link>
@@ -56,26 +60,26 @@ export function MobileMenu({ totalItems }: MobileMenuProps) {
           <div className="flex flex-col gap-2">
             <Link
               href="/favorites"
-              className="px-4 py-2 hover:bg-muted rounded-md transition-colors flex items-center gap-3"
+              className="flex items-center gap-3 rounded-md px-4 py-2 transition-colors hover:bg-muted"
             >
               <Heart className="h-5 w-5" />
               รายการโปรด
             </Link>
             <Link
               href="/account"
-              className="px-4 py-2 hover:bg-muted rounded-md transition-colors flex items-center gap-3"
+              className="flex items-center gap-3 rounded-md px-4 py-2 transition-colors hover:bg-muted"
             >
               <User className="h-5 w-5" />
               บัญชีของฉัน
             </Link>
             <Link
               href="/cart"
-              className="px-4 py-2 hover:bg-muted rounded-md transition-colors flex items-center gap-3"
+              className="flex items-center gap-3 rounded-md px-4 py-2 transition-colors hover:bg-muted"
             >
               <div className="relative">
                 <ShoppingBag className="h-5 w-5" />
                 {totalItems > 0 && (
-                  <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-primary text-[10px] font-medium flex items-center justify-center text-white">
+                  <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-medium text-white">
                     {totalItems}
                   </span>
                 )}
@@ -86,7 +90,7 @@ export function MobileMenu({ totalItems }: MobileMenuProps) {
         </div>
 
         {/* button fix bottom to close menu */}
-        <div className="mt-auto pt-4 border-t w-full">
+        <div className="mt-auto w-full border-t pt-4">
           <SheetTrigger asChild>
             <Button variant="secondary" className="w-full">
               ปิดเมนู

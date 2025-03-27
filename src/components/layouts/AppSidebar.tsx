@@ -1,6 +1,5 @@
 "use client"
 
-import { motion } from "framer-motion";
 import { useAlertDialog } from "@/store/alert-dialog"
 import { Button } from "@/ui/button"
 import {
@@ -11,6 +10,7 @@ import {
   SidebarRail,
   useSidebar,
 } from "@/ui/sidebar"
+import { motion } from "framer-motion"
 import {
   AppWindow,
   AudioWaveform,
@@ -84,24 +84,24 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <div className="flex items-center justify-center gap-2 overflow-hidden text-4xl font-bold text-primary">
           <motion.span
             key={isCollapsed ? "collapsed" : "expanded"}
-            initial={{ 
-              opacity: 0, 
+            initial={{
+              opacity: 0,
               x: isCollapsed ? -20 : 20,
-              rotateY: isCollapsed ? 90 : -90
+              rotateY: isCollapsed ? 90 : -90,
             }}
-            animate={{ 
-              opacity: 1, 
+            animate={{
+              opacity: 1,
               x: 0,
-              rotateY: 0
+              rotateY: 0,
             }}
-            exit={{ 
+            exit={{
               opacity: 0,
               x: isCollapsed ? 20 : -20,
-              rotateY: isCollapsed ? -90 : 90
+              rotateY: isCollapsed ? -90 : 90,
             }}
-            transition={{ 
+            transition={{
               duration: 0.4,
-              ease: [0.4, 0, 0.2, 1]
+              ease: [0.4, 0, 0.2, 1],
             }}
           >
             {isCollapsed ? "M" : "MOMO STORE"}

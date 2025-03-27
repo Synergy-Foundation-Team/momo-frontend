@@ -1,6 +1,7 @@
 "use client"
 
 // Required for usePathname()
+import React from "react"
 import { usePathname } from "next/navigation"
 import {
   Breadcrumb,
@@ -14,7 +15,6 @@ import { Separator } from "@/ui/separator"
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/ui/sidebar"
 
 import { AppSidebar } from "@/components/layouts/AppSidebar"
-import React from "react"
 
 // Define the layout component that accepts page content through `children`
 export default function AdminLayout({
@@ -51,10 +51,12 @@ export default function AdminLayout({
                         {!isLast ? (
                           <BreadcrumbLink href={href}>
                             {decodeURIComponent(segment)}
-                          </BreadcrumbLink>) : (
+                          </BreadcrumbLink>
+                        ) : (
                           <BreadcrumbPage>
                             {decodeURIComponent(segment)}
-                          </BreadcrumbPage>)}
+                          </BreadcrumbPage>
+                        )}
                       </BreadcrumbItem>
                     </React.Fragment>
                   )

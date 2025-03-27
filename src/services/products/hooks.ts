@@ -1,5 +1,6 @@
-import { useQuery, useMutation } from "@tanstack/react-query"
-import { getProducts, createProduct } from "./api"
+import { useMutation, useQuery } from "@tanstack/react-query"
+
+import { createProduct, getProducts } from "./api"
 import type { Product } from "./types"
 
 export const useGetProducts = () => {

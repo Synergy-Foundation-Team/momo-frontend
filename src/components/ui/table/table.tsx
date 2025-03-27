@@ -162,7 +162,7 @@ export function DataTable<TData>({ data, columns }: DataTableProps<TData>) {
         </Pagination>
         {/* Rows per page selection */}
         <div className="flex items-center space-x-2">
-          <span className="text-sm text-nowrap">Rows per page:</span>
+          <span className="text-nowrap text-sm">Rows per page:</span>
           <Select
             onValueChange={value => table.setPageSize(Number(value))}
             value={String(table.getState().pagination.pageSize)}
