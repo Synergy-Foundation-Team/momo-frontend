@@ -43,7 +43,9 @@ export default function BannerUploader() {
     unit: "%",
     width: 80,
     height: 20,
-    aspect: 1284 / 400, // Maintain aspect ratio
+    // aspect: 1284 / 400, // Maintain aspect ratio
+    x: 0,
+    y: 0,
   })
   const imgRef = useRef<HTMLImageElement | null>(null)
   const inputRefs = {

@@ -9,7 +9,7 @@ import { Minus, Plus, ShoppingBag } from "lucide-react"
 
 import { ProductGallery } from "@/components/products/ProductGallery"
 
-type PackOption = {
+interface PackOption {
   id: string
   name: string
   price: number
@@ -108,11 +108,10 @@ export default function ProductPage({
               {packOptions.map(option => (
                 <Label
                   key={option.id}
-                  className={`flex cursor-pointer items-center justify-between rounded-lg border p-4 ${
-                    selectedPack === option.id
+                  className={`flex cursor-pointer items-center justify-between rounded-lg border p-4 ${selectedPack === option.id
                       ? "border-primary bg-primary/5"
                       : "hover:bg-muted/50"
-                  }`}
+                    }`}
                 >
                   <div className="flex items-center gap-2">
                     <RadioGroupItem value={option.id} id={option.id} />
